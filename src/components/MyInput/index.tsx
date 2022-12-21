@@ -11,12 +11,11 @@ interface InputProps {
   errors: any,
   inputLeftElement: any,  
   type: string,
-  placeholder: string,
-  autoFocus: boolean,
+  placeholder: string, 
   marginTop: string
 }
 
-export default function MyInput({name, errors, control, type, inputLeftElement, placeholder, autoFocus, marginTop}: InputProps){
+export default function MyInput({name, errors, control, type, inputLeftElement, placeholder, marginTop}: InputProps){
     const [show, setShow] = useState(false);
   
     const rightElement = () => {       
@@ -45,8 +44,7 @@ export default function MyInput({name, errors, control, type, inputLeftElement, 
                 render={({field: {onChange, value}})=>(
                     <Input 
                         minW='100%'
-                        backgroundColor='primary.100'
-                        autoFocus={autoFocus}
+                        backgroundColor='primary.100'                       
                         value={value}
                         onChangeText={onChange}
                         placeholder={placeholder}                                         

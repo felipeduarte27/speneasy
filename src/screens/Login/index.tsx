@@ -84,8 +84,7 @@ export default function Login({navigation}: InputProps){
                 </Box>
                 <MyInput
                     name='email' 
-                    placeholder='Email'
-                    autoFocus={true}
+                    placeholder='Email'                   
                     control={control} 
                     errors={errors} 
                     inputLeftElement='person'                                         
@@ -96,8 +95,7 @@ export default function Login({navigation}: InputProps){
                 
                 <MyInput
                     name='password' 
-                    placeholder='Senha'
-                    autoFocus={false}
+                    placeholder='Senha'                   
                     control={control} 
                     errors={errors} 
                     inputLeftElement=''                                            

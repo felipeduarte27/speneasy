@@ -75,8 +75,7 @@ export default function Cost ({categoryId}: InputProps){
                             control={control}
                             errors={errors}
                             name='value'
-                            mask='money'
-                            autoFocus={true}
+                            mask='money'                            
                         />                                                                            
                     </Modal.Body>
                     <Modal.Footer justifyContent='center'>

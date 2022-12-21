@@ -55,8 +55,7 @@ export default function ForgotPassword({navigation}: InputProps){
 
                 <MyInput
                     name='email' 
-                    placeholder='Email'
-                    autoFocus={false}
+                    placeholder='Email'                   
                     control={control} 
                     errors={errors} 
                     inputLeftElement='person'                                            

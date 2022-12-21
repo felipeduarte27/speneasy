@@ -61,8 +61,7 @@ export default function MyFormUser({myOnSubmit, title, buttonTitle, user, resetF
                 
             <MyInput
                 name='nome' 
-                placeholder='Nome'
-                autoFocus={true}
+                placeholder='Nome'               
                 control={control} 
                 errors={errors} 
                 inputLeftElement=''                                             
@@ -72,8 +71,7 @@ export default function MyFormUser({myOnSubmit, title, buttonTitle, user, resetF
 
             <MyInput
                 name='email' 
-                placeholder='Email'
-                autoFocus={false}
+                placeholder='Email'               
                 control={control} 
                 errors={errors} 
                 inputLeftElement='person'                                            
@@ -84,8 +82,7 @@ export default function MyFormUser({myOnSubmit, title, buttonTitle, user, resetF
                 
             <MyInput
                 name='password' 
-                placeholder='Senha'
-                autoFocus={false}
+                placeholder='Senha'               
                 control={control} 
                 errors={errors} 
                 inputLeftElement=''                                     

@@ -8,11 +8,10 @@ import { useTheme } from 'native-base';
 interface InputProps {
   control: any,
   name: string,
-  errors: any,
-  autoFocus: boolean
+  errors: any, 
 }
 
-export default function MyYearMask ({control, name, errors, autoFocus}: InputProps) {
+export default function MyYearMask ({control, name, errors }: InputProps) {
 
     const theme = useTheme();
     const styles = StyleSheet.create({
@@ -34,8 +33,7 @@ export default function MyYearMask ({control, name, errors, autoFocus}: InputPro
                 control={control}
                 name={name}
                 render={({field: {onChange, value}})=>(
-                    <TextInputMask                                        
-                        autoFocus={autoFocus}                                        
+                    <TextInputMask                                                                                                
                         type={'custom'}
                         value={value}
                         onChangeText={onChange}                    

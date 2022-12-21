@@ -9,7 +9,6 @@ import * as yup from 'yup';
 import { Button, Input, FormControl, FlatList, IconButton, Icon, Select, CheckIcon } from 'native-base';
 import { Controller } from 'react-hook-form';
 import {Ionicons} from '@expo/vector-icons';
-import { useFocusEffect } from '@react-navigation/native';
 
 const subCategorias = [
     {

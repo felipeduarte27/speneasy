@@ -41,8 +41,7 @@ export default function HistoricSearchForm({navigation}: InputProps){
                             <MyYearMask
                                 control={control}
                                 errors={errors}
-                                name='ano'
-                                autoFocus={true}
+                                name='ano'                               
                             />
                         </Box>
                         <Box marginTop={2}>

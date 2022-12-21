@@ -9,11 +9,10 @@ interface InputProps {
   control: any,
   name: string,
   errors: any,
-  mask: any,
-  autoFocus: boolean
+  mask: any, 
 }
 
-export default function MyMoneyMask ({control, name, errors, mask, autoFocus}: InputProps) {
+export default function MyMoneyMask ({control, name, errors, mask }: InputProps) {
 
     const theme = useTheme();
     const styles = StyleSheet.create({
@@ -39,8 +38,7 @@ export default function MyMoneyMask ({control, name, errors, mask, autoFocus}: I
             control={control}
             name={name}
             render={({field: {onChange, value}})=>(
-                <TextInputMask
-                    autoFocus={autoFocus}
+                <TextInputMask                    
                     type={mask}
                     value={value}
                     onChangeText={onChange}                    
