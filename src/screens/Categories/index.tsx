@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Text } from 'native-base';
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '../../components/Header';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -8,7 +8,6 @@ import * as yup from 'yup';
 import { Button, Input, FormControl, FlatList, IconButton, Icon } from 'native-base';
 import { Controller } from 'react-hook-form';
 import {Ionicons} from '@expo/vector-icons';
-import { useFocusEffect } from '@react-navigation/native';
 
 const categorias = [
     {
@@ -61,27 +60,16 @@ export default function Categories ({navigation}: InputProps) {
             setCategory(defaultValues);
         }
         reset();
-    };
-
-    const clear = () => {
-        setCategory({id: 0, name: ''});
-        setCategories([]);
-        setOpenScreen(false);        
-        reset();
-    };    
+    };  
 
     const loadData = async () => {
         setCategories(categorias);
         setOpenScreen(true);
     };
 
-    useFocusEffect(
-        useCallback(()=>{            
-            loadData();
-            return () => clear();
-
-        }, [])
-    );
+    useEffect(()=>{
+        loadData();
+    },[]);
 
     return (
         <>
@@ -115,7 +103,7 @@ export default function Categories ({navigation}: InputProps) {
                                                 type='text'                                        
                                                 _invalid={{
                                                     borderWidth: 1,
-                                                    borderColor: 'others.200'
+                                                    borderColor: 'primary.300'
                                                 }} 
                                             />
                                         )}

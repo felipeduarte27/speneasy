@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, useToast } from 'native-base';
 import Header from '../../components/Header';
 import MyFormUser from '../../components/MyFormUser';
-import { useFocusEffect } from '@react-navigation/native';
 import MyToastBox from '../../components/MyToastBox';
 import Loading from '../Loading';
 
@@ -34,14 +33,10 @@ export default function UpdateUser ({navigation}: InputProps) {
         });      
     };
 
-    useFocusEffect(
-        useCallback(()=>{              
-            setUser({nome: 'Felipe', email: 'felipe@gmail.com', passWord: ''}); 
-            setOpenScreen(true); 
-                
-            return () => {setOpenScreen(false);};
-        },[]));
-  
+    useEffect(()=>{
+        setUser({nome: 'Felipe', email: 'felipe@gmail.com', passWord: ''}); 
+        setOpenScreen(true);
+    },[]);
 
     return (
         <>

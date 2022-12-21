@@ -3,7 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-var-requires */
-import React from 'react';
+import React, { useCallback, useLayoutEffect } from 'react';
 import { Box, Link } from 'native-base';
 import MyFormUser from '../../components/MyFormUser';
 import { useToast } from 'native-base';
@@ -24,7 +24,7 @@ export default function RegisterUser({navigation}: InputProps){
             render: () => { return <MyToastBox description='Usuário cadasatrado !' type='sucess'/>; }
         });
     };
-
+    
     return (
         <Box flex={1} flexDir='column' justifyContent='center' bg='primary.100'>
   

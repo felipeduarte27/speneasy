@@ -3,9 +3,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-var-requires */
-import React, { useState, useContext } from 'react';
-import { Box, Image, Link, Text } from 'native-base';
-import { imgLogin } from '../../assets';
+import React, { useState, useContext, useCallback } from 'react';
+import { Box, Image, Link, Text, useTheme } from 'native-base';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup'; 
@@ -13,7 +12,7 @@ import { Context } from '../../context/UserContext';
 import MyButtonSubmit from '../../components/MyButtonSubmit';
 import MyInput from '../../components/MyInput';
 import { Ionicons } from '@expo/vector-icons';
-import theme from '../../theme';
+import { useFocusEffect } from '@react-navigation/native';
 
 const schema = yup.object({
     email: yup.string().email('Email inválido !').required('Campo obrigatório !'),
@@ -28,6 +27,8 @@ export default function Login({navigation}: InputProps){
     const [isLoading, setIsLoading] = useState(false);
     const {handleLogin} = useContext(Context);
 
+    const theme = useTheme();
+    
     const {control, handleSubmit, reset, formState: { errors }} = useForm({
         defaultValues: {
             email: '',
@@ -50,6 +51,12 @@ export default function Login({navigation}: InputProps){
             } 
         },3000);               
     };
+
+    const clear = () => {
+        reset();
+    };
+
+    useFocusEffect( useCallback(()=>{return clear();},[]));
 
     return (
         <Box flex={1} flexDir='column' bg='primary.100'>

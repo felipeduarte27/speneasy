@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Box, Text } from 'native-base';
-import React, { useState, useCallback } from 'react';
+import { Box, Text, useTheme } from 'native-base';
+import React, { useState, useCallback, useEffect } from 'react';
 import Header from '../../components/Header';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -10,7 +10,6 @@ import { Button, Input, FormControl, FlatList, IconButton, Icon, Select, CheckIc
 import { Controller } from 'react-hook-form';
 import {Ionicons} from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
-import theme from '../../theme';
 
 const subCategorias = [
     {
@@ -74,13 +73,7 @@ export default function SubCategories ({navigation}: InputProps) {
         resolver: yupResolver(schema)
     });
 
-    const clear = () => {
-        setSubCategory({id: 0, name: ''});        
-        setSubCategories([]);
-        setCategories([]);
-        setOpenScreen(false);        
-        reset();
-    }; 
+    const theme = useTheme();
 
     const onSubmit = (data) => {
         setIsLoading(true);        
@@ -105,13 +98,9 @@ export default function SubCategories ({navigation}: InputProps) {
         setOpenScreen(true);
     };
 
-    useFocusEffect(
-        useCallback(()=>{            
-            loadData();
-            return () => clear();
-
-        }, [])
-    );
+    useEffect(()=>{
+        loadData();
+    }, []);
 
     return (
         <>
@@ -129,7 +118,7 @@ export default function SubCategories ({navigation}: InputProps) {
                                     control={control}
                                     render={({field: {onChange, value}}) => (
                                         <Select 
-                                            borderColor={errors.idCategory ? 'others.200' : 'secondary.900'}                                        
+                                            borderColor={errors.idCategory ? 'primary.300' : 'secondary.900'}                                        
                                             selectedValue={value}                                 
                                             accessibilityLabel="Escolha uma categoria" 
                                             placeholder="Escolha uma categoria" 
@@ -186,7 +175,7 @@ export default function SubCategories ({navigation}: InputProps) {
                                                 type='text'                                        
                                                 _invalid={{
                                                     borderWidth: 1,
-                                                    borderColor: 'others.200'
+                                                    borderColor: 'primary.300'
                                                 }} 
                                             />
                                         )}

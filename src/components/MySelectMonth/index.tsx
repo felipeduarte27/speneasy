@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { Controller } from 'react-hook-form';
-import theme from '../../theme';
-import { Select, CheckIcon } from 'native-base';
+import { Select, CheckIcon, useTheme } from 'native-base';
 
 interface InputProps {
   control: any,
@@ -11,6 +10,7 @@ interface InputProps {
 }
 
 export default function MySelectMonth ({ control, name, errors }: InputProps) {
+    const theme = useTheme();
     return (
         <>
             <Controller                
@@ -18,7 +18,7 @@ export default function MySelectMonth ({ control, name, errors }: InputProps) {
                 control={control}
                 render={({field: {onChange, value}}) => (
                     <Select 
-                        borderColor={errors[`${name}`] ? 'others.200' : 'secondary.900'}                                        
+                        borderColor={errors[`${name}`] ? 'primary.300' : 'secondary.900'}                                        
                         selectedValue={value}                                 
                         accessibilityLabel="Escolha uma categoria" 
                         placeholder="Escolha uma categoria" 

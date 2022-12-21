@@ -16,9 +16,8 @@ import SubCategories from '../screens/SubCategories';
 import { Ionicons } from '@expo/vector-icons';
 import HistoricSearchForm from '../screens/HistoricSearchForm';
 import HistoricData from '../screens/HistoricData';
-import theme from '../theme';
+import { useTheme } from 'native-base';
 
-const color = theme.colors.primary[600];
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
 
@@ -31,6 +30,7 @@ export const HistoricStack = function () {
     );};
 
 export const Authenticated = function(){
+    const theme = useTheme();
     return (
         <Drawer.Navigator 
             drawerContent={props => <CustomDrawer {...props}/>} 
@@ -39,6 +39,7 @@ export const Authenticated = function(){
                 drawerActiveBackgroundColor: theme.colors.primary[600],
                 drawerActiveTintColor: theme.colors.primary[100],
                 drawerInactiveTintColor: theme.colors.secondary[900],
+                unmountOnBlur: true,
                 drawerLabelStyle: {
                     marginLeft: -15,
                     fontSize: 16

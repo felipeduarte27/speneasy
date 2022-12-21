@@ -57,12 +57,12 @@ export default function MyInput({name, errors, control, type, inputLeftElement, 
                         InputRightElement={rightElement()}
                         _invalid={{
                             borderWidth: 1,
-                            borderColor: 'others.200'
+                            borderColor: 'primary.300'
                         }} 
                     />
                 )}
             />
-            <FormControl.ErrorMessage _text={{color: 'others.200'}}>                       
+            <FormControl.ErrorMessage _text={{color: 'primary.300'}}>                       
                 {errors[`${name}`]?.message}
             </FormControl.ErrorMessage>
         </FormControl>

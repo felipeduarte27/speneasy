@@ -7,8 +7,8 @@ const theme = extendTheme({
     colors: {            
         primary: {
             100: '#ffffff',
-            200: '#80b7bc',           
-            300: '#58a0a7',
+            200: '#2ecc71',           
+            300: '#c32c19',
             400: '#50989f',
             500: '#489097',
             600: '#3F888F',
@@ -26,10 +26,6 @@ const theme = extendTheme({
             700: '#858481',
             800: '#7c7b79',
             900: '#747370',
-        },
-        others: {
-            100: '#2ecc71',
-            200: '#c32c19'
         }
     },
     components: {

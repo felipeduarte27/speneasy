@@ -2,9 +2,8 @@
 import React from 'react';
 import { TextInputMask } from 'react-native-masked-text';
 import { Controller } from 'react-hook-form';
-import { Text } from 'native-base';
+import { Text, useTheme } from 'native-base';
 import { StyleSheet } from 'react-native';
-import theme from '../../../theme';
 
 interface InputProps {
   control: any,
@@ -15,6 +14,26 @@ interface InputProps {
 }
 
 export default function MyMoneyMask ({control, name, errors, mask, autoFocus}: InputProps) {
+
+    const theme = useTheme();
+    const styles = StyleSheet.create({
+        input: {
+            width: '100%',
+            height: 50,
+            borderWidth: 0.5,        
+            borderRadius: 4,
+            padding: 10,
+            backgroundColor: theme.colors.primary[100],
+            marginTop: 12
+        },
+        labelError: {
+            alignSelf: 'flex-start',
+            color: theme.colors.primary[300],
+            marginTop: 3,
+            marginBottom: 8
+        }
+    });
+
     return (<>
         <Controller
             control={control}
@@ -32,7 +51,7 @@ export default function MyMoneyMask ({control, name, errors, mask, autoFocus}: I
                         unit: 'R$ ',
                         suffixUnit: ''
                     }}
-                    style={[styles.input, { borderColor: !errors[`${name}`] ? theme.colors.secondary[900] : theme.colors.others[200]}]}
+                    style={[styles.input, { borderColor: !errors[`${name}`] ? theme.colors.secondary[900] : theme.colors.primary[300]}]}
                     placeholder='Valor'
                 />
             )}
@@ -41,20 +60,3 @@ export default function MyMoneyMask ({control, name, errors, mask, autoFocus}: I
     </>);
 }
 
-const styles = StyleSheet.create({
-    input: {
-        width: '100%',
-        height: 50,
-        borderWidth: 0.5,        
-        borderRadius: 4,
-        padding: 10,
-        backgroundColor: theme.colors.primary[100],
-        marginTop: 12
-    },
-    labelError: {
-        alignSelf: 'flex-start',
-        color: theme.colors.others[200],
-        marginTop: 3,
-        marginBottom: 8
-    }
-});

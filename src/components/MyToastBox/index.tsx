@@ -8,7 +8,7 @@ interface InputProps {
 export default function MyToastBox ({description, type}: InputProps) {
     return (
         <Box
-            backgroundColor={type === 'sucess' ? 'others.100' : 'others.200'}
+            backgroundColor={type === 'sucess' ? 'primary.200' : 'primary.300'}
             padding={2}
             borderRadius={3}
             _text={{
