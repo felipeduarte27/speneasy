@@ -229,7 +229,11 @@ export default function SubCategories ({navigation}: InputProps) {
                             )}                
                         />
                     </Box>
-                </Box>) : <Text>Carregando</Text>
+                </Box>) : 
+                <Box>
+                    <Header navigation={navigation}/>
+                    <Box> Carregando </Box>
+                </Box>
             }
         </>
     );

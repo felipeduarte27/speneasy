@@ -13,6 +13,10 @@ import MyButtonSubmit from '../../components/MyButtonSubmit';
 import MyInput from '../../components/MyInput';
 import { Ionicons } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native';
+import MyToastBox from '../../components/MyToastBox';
+import { useToast } from 'native-base';
+import api from '../../api/axios';
+
 
 const schema = yup.object({
     email: yup.string().email('Email inválido !').required('Campo obrigatório !'),
@@ -26,7 +30,7 @@ interface InputProps {
 export default function Login({navigation}: InputProps){
     const [isLoading, setIsLoading] = useState(false);
     const {handleLogin} = useContext(Context);
-
+    const toast = useToast();
     const theme = useTheme();
     
     const {control, handleSubmit, reset, formState: { errors }} = useForm({
@@ -37,23 +41,34 @@ export default function Login({navigation}: InputProps){
         resolver: yupResolver(schema)
     });
 
-    const onSubmit = (data) => {
-        setIsLoading(true);
-        setTimeout(()=>{
-            const user = {id: '1', nome: 'Felipe', token: 'valid'};
-
-            if(true){                        
-                handleLogin(user);
-                setIsLoading(false);
-                reset();            
-            }else{
-                return null;
-            } 
-        },3000);               
-    };
-
     const clear = () => {
         reset();
+    };
+
+    const onSubmit = async (data) => {
+        setIsLoading(true);
+        const { email, password } = data;
+        try{
+            const apiReturn = await api.post('users/auth/login', {
+                username: email,
+                password: password
+            });
+            const { id, name, access_token } = apiReturn.data;
+            const user = {
+                id: id.toString(),
+                nome: name,
+                token: access_token
+            };
+            handleLogin(user);
+            setIsLoading(false);
+            reset();           
+        }catch(error){
+            setIsLoading(false);
+            clear();
+            toast.show({
+                render: () => {return <MyToastBox description='Login Inválido !' type='error'/>;}
+            });
+        }
     };
 
     useFocusEffect( useCallback(()=>{return clear();},[]));
