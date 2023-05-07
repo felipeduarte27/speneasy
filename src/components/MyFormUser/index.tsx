@@ -42,15 +42,12 @@ export default function MyFormUser({myOnSubmit, title, buttonTitle, user, resetF
         resolver: yupResolver(schema)
     });
 
-    const onSubmit = (data) => {       
-        myOnSubmit(data);
+    const onSubmit = (data) => { 
         setIsLoading(true);
-        setTimeout(()=>{
-            setIsLoading(false);
-            if(resetForm)
-                reset();
-            return null;
-        },3000);               
+        myOnSubmit(data);
+        setIsLoading(false);
+        if(resetForm)
+            reset();                             
     };
 
     return (    

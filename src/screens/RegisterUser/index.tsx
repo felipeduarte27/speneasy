@@ -8,6 +8,7 @@ import { Box, Link } from 'native-base';
 import MyFormUser from '../../components/MyFormUser';
 import { useToast } from 'native-base';
 import MyToastBox from '../../components/MyToastBox';
+import api from '../../api/axios';
 
 interface InputProps {
   navigation: any
@@ -17,12 +18,18 @@ export default function RegisterUser({navigation}: InputProps){
     
     const toast = useToast();
 
-    const myOnSubmit = (data) => {
-        console.log('myOnSubmit:');
-        console.log(data);                     
-        toast.show({
-            render: () => { return <MyToastBox description='Usuário cadasatrado !' type='sucess'/>; }
-        });
+    const myOnSubmit = async (data) => {
+        try{
+            await api.post('/users/create', {name: data.nome, ...data});
+            toast.show({
+                render: () => { return <MyToastBox description='Usuário cadasatrado !' type='sucess'/>; }
+            });
+        }catch(error){
+            console.log(error);
+            toast.show({
+                render: () => { return <MyToastBox description='Erro ao salvar os dados !' type='error'/>; }
+            });
+        }
     };
     
     return (

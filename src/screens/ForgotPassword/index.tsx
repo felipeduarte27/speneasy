@@ -12,6 +12,7 @@ import MyButtonSubmit from '../../components/MyButtonSubmit';
 import MyInput from '../../components/MyInput';
 import { useToast } from 'native-base';
 import MyToastBox from '../../components/MyToastBox';
+import api from '../../api/axios';
 
 const schema = yup.object({    
     email: yup.string().email('Email inválido !').required('Campo obrigatório !'),
@@ -32,17 +33,21 @@ export default function ForgotPassword({navigation}: InputProps){
         resolver: yupResolver(schema)
     });
 
-    const onSubmit = (data) => {
-        console.log(data);
-        setIsLoading(true);
-        setTimeout(()=>{
-            setIsLoading(false);
-            reset();
+    const onSubmit = async (data) => {
+        try{
+            setIsLoading(true);
+            await api.put('/users/forgotPassword', data);
             toast.show({
                 render: () => {return <MyToastBox description='Email enviado !' type='sucess'/>;}
             });
-            return null;
-        },3000);               
+        }catch(error){
+            toast.show({
+                render: () => {return <MyToastBox description='Email enviado !' type='sucess'/>;}
+            });
+        }finally{
+            setIsLoading(false);
+            reset();
+        }              
     };
 
     return (
