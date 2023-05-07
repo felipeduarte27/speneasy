@@ -1,10 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Box, useToast } from 'native-base';
 import Header from '../../components/Header';
 import MyFormUser from '../../components/MyFormUser';
 import MyToastBox from '../../components/MyToastBox';
 import Loading from '../Loading';
+import { Context } from '../../context/UserContext';
+import api from '../../api/axios';
 
 interface InputProps {
   navigation: any
@@ -13,17 +15,16 @@ interface InputProps {
 interface User {
   nome: string,
   email: string,
-  passWord: string
 }
 
 export default function UpdateUser ({navigation}: InputProps) {
     const [user, setUser] = useState<User>({
         nome: '',
         email: '',
-        passWord: ''
     });
     const [openScreen, setOpenScreen] = useState(false);
     const toast = useToast();
+    const { user: userContext } = useContext(Context);
 
     const myOnSubmit = (data) => {        
         setUser(data);  
@@ -33,9 +34,23 @@ export default function UpdateUser ({navigation}: InputProps) {
         });      
     };
 
-    useEffect(()=>{
-        setUser({nome: 'Felipe', email: 'felipe@gmail.com', passWord: ''}); 
-        setOpenScreen(true);
+    const loadData = async () => {
+        try{            
+            const apiReturn = await api.get(`/users/findById/${userContext.id}`);
+            const { name, email } = apiReturn.data;
+            setUser({
+                nome: name,
+                email: email,
+            }); 
+        }catch(error){
+            console.log(error);
+        }finally{
+            setOpenScreen(true); 
+        }
+    };
+
+    useEffect(()=>{       
+        loadData(); 
     },[]);
 
     return (
