@@ -26,12 +26,21 @@ export default function UpdateUser ({navigation}: InputProps) {
     const toast = useToast();
     const { user: userContext } = useContext(Context);
 
-    const myOnSubmit = (data) => {        
-        setUser(data);  
-        toast.show({
-            render: () => {
-                return <MyToastBox description='Dados salvos com sucesso !' type='sucess'/>;}
-        });      
+    const myOnSubmit = async (data) => { 
+        try{                  
+            setUser(data);  
+            await api.put(`/users/update/${userContext.id}`, {name: data.nome, email: data.email});
+            toast.show({
+                render: () => {
+                    return <MyToastBox description='Dados salvos com sucesso !' type='sucess'/>;}
+            }); 
+        }catch(error){
+            console.log(error);
+            toast.show({
+                render: () => {
+                    return <MyToastBox description='Erro ao salvar os dados !' type='error'/>;}
+            }); 
+        }     
     };
 
     const loadData = async () => {
@@ -66,6 +75,7 @@ export default function UpdateUser ({navigation}: InputProps) {
                             myOnSubmit={myOnSubmit}
                             resetForm={false}
                             loadingText='Atualizando'
+                            type='update'
                         />
                     </Box>            
                 </Box>

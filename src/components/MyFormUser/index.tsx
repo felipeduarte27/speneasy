@@ -11,10 +11,15 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import MyButtonSubmit from '../../components/MyButtonSubmit';
 import MyInput from '../../components/MyInput';
 
-const schema = yup.object({
+const createSchema = yup.object({
     nome: yup.string().required('Campo Obrigatório'),
     email: yup.string().email('Email inválido !').required('Campo obrigatório !'),
     password: yup.string().required('Campo obrigatório !')
+}).required();
+
+const updateSchema = yup.object({
+    nome: yup.string().required('Campo Obrigatório'),
+    email: yup.string().email('Email inválido !').required('Campo obrigatório !')
 }).required();
 
 interface InputProps {
@@ -23,23 +28,24 @@ interface InputProps {
   buttonTitle: string,
   user: object,
   resetForm: boolean,
-  loadingText: string
+  loadingText: string,
+  type: string
 }
 
 interface User {
     nome: string
 }
 
-export default function MyFormUser({myOnSubmit, title, buttonTitle, user, resetForm, loadingText}: InputProps){
+export default function MyFormUser({myOnSubmit, title, buttonTitle, user, resetForm, loadingText, type}: InputProps){
     const [isLoading, setIsLoading] = useState(false);
 
     const {control, handleSubmit, reset, formState: { errors }} = useForm({
         defaultValues: {
             nome: user['nome'],
             email: user['email'],
-            password: user['passWord'],            
+            password: user['passWord'] ? user['passWord'] : '',            
         },
-        resolver: yupResolver(schema)
+        resolver: yupResolver(type === 'create' ? createSchema : updateSchema)
     });
 
     const onSubmit = (data) => { 
@@ -76,16 +82,17 @@ export default function MyFormUser({myOnSubmit, title, buttonTitle, user, resetF
                 marginTop='4'
             />
 
-                
-            <MyInput
-                name='password' 
-                placeholder='Senha'               
-                control={control} 
-                errors={errors} 
-                inputLeftElement=''                                     
-                type='password'
-                marginTop='4'
-            />
+            {type === 'create' ? 
+                <MyInput
+                    name='password' 
+                    placeholder='Senha'               
+                    control={control} 
+                    errors={errors} 
+                    inputLeftElement=''                                     
+                    type='password'
+                    marginTop='4'
+                /> : null}
+            
 
             <MyButtonSubmit
                 text={buttonTitle}

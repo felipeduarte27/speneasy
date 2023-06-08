@@ -42,6 +42,7 @@ export default function RegisterUser({navigation}: InputProps){
                 myOnSubmit={myOnSubmit}
                 resetForm={true}
                 loadingText='Cadastrando'
+                type='create'
             />
            
             <Box flexDirection='row' justifyContent='left' marginTop={2} marginLeft={8}>

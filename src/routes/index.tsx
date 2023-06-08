@@ -16,6 +16,7 @@ import SubCategories from '../screens/SubCategories';
 import { Ionicons } from '@expo/vector-icons';
 import HistoricSearchForm from '../screens/HistoricSearchForm';
 import HistoricData from '../screens/HistoricData';
+import UpdatePassword from '../screens/UpdatePassword';
 import { useTheme } from 'native-base';
 
 const Stack = createNativeStackNavigator();
@@ -52,7 +53,11 @@ export const Authenticated = function(){
             <Drawer.Screen name="updateUser" component={UpdateUser} options={{
                 title: 'Dados Pessoais',                    
                 drawerIcon: ({color}) => (<Ionicons name='person' size={16} color={color}/>)
-            }}/>   
+            }}/>  
+            <Drawer.Screen name="updatePassword" component={UpdatePassword} options={{
+                title: 'Senha',                    
+                drawerIcon: ({color}) => (<Ionicons name='person' size={16} color={color}/>)
+            }}/>  
             <Drawer.Screen name="categories" component={Categories} options={{
                 title: 'Categorias',                    
                 drawerIcon: ({color}) => (<Ionicons name='list' size={16} color={color}/>)
