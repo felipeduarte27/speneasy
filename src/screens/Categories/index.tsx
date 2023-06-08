@@ -1,32 +1,28 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Text } from 'native-base';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Header from '../../components/Header';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { Button, Input, FormControl, FlatList, IconButton, Icon } from 'native-base';
-import { Controller } from 'react-hook-form';
+import { FlatList, IconButton, Icon } from 'native-base';
+import MyInput from '../../components/MyInput';
 import {Ionicons} from '@expo/vector-icons';
-
-const categorias = [
-    {
-        id: 1,
-        name: 'Casa'
-    },
-    {
-        id: 2,
-        name: 'Carro'
-    }
-];
+import api from '../../api/axios';
+import { Context } from '../../context/UserContext';
+import MyButtonSubmit from '../../components/MyButtonSubmit';
+import MyInputSelect from '../../components/MyInputSelect';
 
 const defaultValues = {
     id: 0,
-    name: ''
+    name: '',
+    categorias: '0',
+    categoriesId: '0'
 };
 
 const schema = yup.object({
-    nome: yup.string().required('Campo obrigatório !')
+    nome: yup.string().required('Campo obrigatório !'),
+    categorias: yup.string().required('Campo obrigatório !')
 }).required();
 
 interface InputProps {
@@ -35,7 +31,8 @@ interface InputProps {
 
 interface Category {
     id: number,
-    name: string
+    name: string,
+    categoriesId: string
 }
 
 export default function Categories ({navigation}: InputProps) {
@@ -43,28 +40,41 @@ export default function Categories ({navigation}: InputProps) {
     const [category, setCategory] = useState<Category>(defaultValues);
     const [categories, setCategories] = useState<Category[]>([]);
     const [openScreen, setOpenScreen] = useState(false);
+    const { user: userContext } = useContext(Context);
 
     const {control, handleSubmit, reset, setValue, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
     });
 
-    const onSubmit = (data) => {
-        setIsLoading(true);        
-        setIsLoading(false);        
-        setCategories([
-            ...categories,
-            {id: 3, name: data.nome}
-        ]);
-        
-        if(category.id){            
-            setCategory(defaultValues);
+    const onSubmit = async (data) => {               
+        try{
+            setIsLoading(true);
+            await api.post('/categories/create', {
+                name: data.nome,
+                userId: parseInt(userContext.id),
+                active: true,
+                categoriesId: parseInt(data.categorias) > 0 ? parseInt(data.categorias) : null,
+                recurrent: null
+            });
+            const apiReturn = await api.get(`/categories/findAllActives/${userContext.id}`);
+            setCategories(apiReturn.data);     
+        }catch(error){
+            console.log(error);
+        }finally{
+            reset();
+            setValue('categorias', ''); 
+            setIsLoading(false);
         }
-        reset();
     };  
 
     const loadData = async () => {
-        setCategories(categorias);
-        setOpenScreen(true);
+        try{
+            const apiReturn = await api.get(`/categories/findAllActives/${userContext.id}`);
+            setCategories(apiReturn.data);
+            setOpenScreen(true);
+        } catch(error){
+            console.log(error);
+        }        
     };
 
     useEffect(()=>{
@@ -76,52 +86,39 @@ export default function Categories ({navigation}: InputProps) {
             {openScreen ? 
                 (<Box flex={1} backgroundColor='primary.100'>
                     <Header navigation={navigation}/>
-                    <Box>
-                        <Text fontSize={16} fontWeight='bold' alignSelf='center' marginTop={4}>
+                    <Box paddingX={8} marginTop={10}>
+                        <Text alignSelf='center' fontSize='2xl' fontWeight='bold'>
                             {category.name ? 'Atualizar' : 'Cadastrar'} Categoria
-                        </Text>
-                        <Box 
-                            flexDir ='row' 
-                            justifyContent='center' 
-                            alignItems='center'                                                                                                                         
-                            margin={4}                                                
-                        >
-                            <Box marginRight={1} width='80%'>
-                                <FormControl isInvalid={'nome' in errors}>
-                                    <Controller
-                                        control={control} 
-                                        name='nome'
-                                        render={({field: {onChange, value}})=>(
-                                            <Input 
-                                                minW='100%' 
-                                                backgroundColor='primary.100'                                      
-                                                value={value}
-                                                onChangeText={onChange}
-                                                placeholder='Nome da Categoria'                                         
-                                                marginTop={0} 
-                                                autoCapitalize='none'                                       
-                                                type='text'                                        
-                                                _invalid={{
-                                                    borderWidth: 1,
-                                                    borderColor: 'primary.300'
-                                                }} 
-                                            />
-                                        )}
-                                    />                            
-                                </FormControl>
-                            </Box>
-                            <Box marginLeft={1}>
-                                <Button 
-                                    isLoading={isLoading}
-                                    isLoadingText=''
-                                    onPress={handleSubmit(onSubmit)}
-                                    height={10} 
-                                    width={10} 
-                                    borderRadius={44/2} 
-                                    padding={0}>
-                                    <Text alignSelf='center' fontSize={18} fontWeight='bold' color='primary.100' >+</Text>
-                                </Button>
-                            </Box>
+                        </Text>                        
+                        <Box>
+                            <MyInput
+                                name='nome' 
+                                placeholder='Nome'               
+                                control={control} 
+                                errors={errors} 
+                                inputLeftElement=''                                             
+                                type='text'
+                                marginTop='4'
+                            />                            
+                        </Box>
+                        <Box marginTop={2}>
+                            <MyInputSelect 
+                                control={control}
+                                name='categorias'
+                                errors={errors}
+                                data={categories}
+                                placeholder='Escolha uma Categoria'
+                            />                           
+                        </Box>
+                        <Box>
+                            <MyButtonSubmit
+                                text={category.name ? 'Atualizar' : 'Cadastrar'}
+                                loadingText={category.name ? 'Atualizando' : 'Cadastrando'}
+                                isLoading={isLoading}
+                                handleSubmite={handleSubmit}
+                                onSubmit={onSubmit}
+                                marginTop={4}
+                            />  
                         </Box>
                     </Box>
                     <Box borderTopWidth={1} borderColor='secondary.900' margin={4}> 
@@ -137,7 +134,14 @@ export default function Categories ({navigation}: InputProps) {
                                     <Text fontWeight='bold' color='secondary.900' fontSize={16}>{item.name}</Text> 
                                     <Box flexDirection='row' alignContent='center' alignItems='center'>
                                         <IconButton                                                      
-                                            onPress={()=>{setValue('nome', item.name); setCategory({id: item.id, name: item.name});}} 
+                                            onPress={()=>{                                                                                               
+                                                setValue('nome', item.name); 
+                                                setValue('categorias', item.categoriesId ? item.categoriesId : '0'); 
+                                                setCategory({
+                                                    id: item.id, 
+                                                    name: item.name, 
+                                                    categoriesId: item.categoriesId});
+                                            }} 
                                             _pressed={{backgroundColor: 'primary.100'}}                                                                                                                                        
                                             icon={
                                                 <Icon color='primary.600' as={Ionicons} name='create-sharp'/>

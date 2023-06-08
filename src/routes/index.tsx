@@ -12,7 +12,6 @@ import ForgotPassword from '../screens/ForgotPassword';
 import CustomDrawer from '../components/CustomDrawer';
 import UpdateUser from '../screens/UpdateUser';
 import Categories from '../screens/Categories';
-import SubCategories from '../screens/SubCategories';
 import { Ionicons } from '@expo/vector-icons';
 import HistoricSearchForm from '../screens/HistoricSearchForm';
 import HistoricData from '../screens/HistoricData';
@@ -61,11 +60,7 @@ export const Authenticated = function(){
             <Drawer.Screen name="categories" component={Categories} options={{
                 title: 'Categorias',                    
                 drawerIcon: ({color}) => (<Ionicons name='list' size={16} color={color}/>)
-            }}/>   
-            <Drawer.Screen name="subCategories" component={SubCategories} options={{
-                title: 'Subcategorias',                    
-                drawerIcon: ({color}) => (<Ionicons name='list-circle' size={16} color={color}/>)
-            }}/>  
+            }}/>
             <Drawer.Screen name="historic" component={HistoricStack} options={{
                 title: 'Histórico',                    
                 drawerIcon: ({color}) => (<Ionicons name='today' size={16} color={color}/>)
