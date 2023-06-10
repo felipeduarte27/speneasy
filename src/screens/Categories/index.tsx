@@ -46,16 +46,26 @@ export default function Categories ({navigation}: InputProps) {
         resolver: yupResolver(schema)
     });
 
-    const onSubmit = async (data) => {               
+    const onSubmit = async (data) => {              
         try{
             setIsLoading(true);
-            await api.post('/categories/create', {
-                name: data.nome,
-                userId: parseInt(userContext.id),
-                active: true,
-                categoriesId: parseInt(data.categorias) > 0 ? parseInt(data.categorias) : null,
-                recurrent: null
-            });
+            if(category && category.id > 0){
+                await api.put(`/categories/update/${category.id}`, {
+                    name: data.nome,
+                    userId: parseInt(userContext.id),
+                    active: true,
+                    categoriesId: parseInt(data.categorias) > 0 ? parseInt(data.categorias) : null,
+                    recurrent: null
+                });
+            }else{
+                await api.post('/categories/create', {
+                    name: data.nome,
+                    userId: parseInt(userContext.id),
+                    active: true,
+                    categoriesId: parseInt(data.categorias) > 0 ? parseInt(data.categorias) : null,
+                    recurrent: null
+                });
+            }
             const apiReturn = await api.get(`/categories/findAllActives/${userContext.id}`);
             setCategories(apiReturn.data);     
         }catch(error){
@@ -147,7 +157,15 @@ export default function Categories ({navigation}: InputProps) {
                                                 <Icon color='primary.600' as={Ionicons} name='create-sharp'/>
                                             }/>  
                                         <IconButton
-                                            onPress={()=>{console.log('delete');}}
+                                            onPress={async ()=>{
+                                                try{
+                                                    await api.delete(`categories/delete/${item.id}`);
+                                                    const apiReturn = await api.get(`/categories/findAllActives/${userContext.id}`); 
+                                                    setCategories(apiReturn.data);                                                
+                                                }catch(error){
+                                                    console.log(error);
+                                                }
+                                            }}
                                             _pressed={{backgroundColor: 'primary.100'}}
                                             icon={
                                                 <Icon color='primary.600' as={Ionicons} name='trash'/>
