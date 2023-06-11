@@ -1,67 +1,61 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState } from 'react';
-import { Box, Text, FlatList, Link, Modal, FormControl } from 'native-base';
-import MyButtonSubmit from '../MyButtonSubmit';
+import React, { useState, useContext } from 'react';
+import { Box, Modal, Link } from 'native-base';
+import MyMoneyMask from '../InputMasks/MyMoneyMask';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import MyMoneyMask from '../InputMasks/MyMoneyMask';
+import MyButtonSubmit from '../MyButtonSubmit';
+import api from '../../api/axios';
+import { Context } from '../../context/UserContext';
 
 const schema = yup.object({
     value: yup.string().required('Campo Obrigatório')
 }).required();
 
 interface Cost {
-  id: number,
-  nome: string
-}
+    id: number,
+    nome: string
+  }
 
-interface InputProps {
-  categoryId: number   
-}
-
-export default function Cost ({categoryId}: InputProps){
-
-    const [despesas, setDespesas] = useState([
-        {
-            id: 1,
-            nome: 'Aluguel',
-            id_categoria: 1,
-            valor: '600,21'
-        },
-        {
-            id: 2,
-            nome: 'Condomínio',
-            id_categoria: 1,
-            valor: '221.23'
-        }
-    ]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [modalVisible, setModalVisible] = useState(false);
+const Tree = ({ categories: categoriesProps, nivel = 0 }: any) => {
     const [cost, setCost] = useState<Cost>({id: 0, nome: ''});
-
+    const [modalVisible, setModalVisible] = useState(false);
+    const [categories, setCategories] = useState(null);
+    const {id, name, children, expensesValue} = categories ? categories : categoriesProps;
+    const [isLoading, setIsLoading] = useState(false);
+    const { user: userContext } = useContext(Context);
     const {control, handleSubmit, reset, formState: {errors}} = useForm({
         defaultValues: {
             value: ''
         },
         resolver: yupResolver(schema)
     });
-    
+
     const clear = () => {        
         setModalVisible(false);
         setCost({id: 0, nome: ''});
         reset();
     };
 
-    const onSubmit = (data) => {
-        console.log(data);
-        setIsLoading(true);  
-        setTimeout(()=>{
-            setModalVisible(false);
+    const onSubmit = async (data) => {
+        try{
+            setIsLoading(true); 
+            const date = new Date();        
+            await api.post('/expenses/create', {
+                value: parseFloat(data.value.replace('R', '').replace('$', '').replace(',', '.').trim()),
+                month: date.getMonth()+1,
+                year: date.getFullYear(),
+                userId: parseInt(userContext.id),
+                categoriesId: cost.id
+            });     
+            const apiReturn = await api.get(`/categories/findAll/${userContext.id}`);               
+            setCategories(apiReturn.data);
+        }catch(error){
+            console.log(error);
+        }finally{
             setIsLoading(false);
-        }, 3000);      
-        
-        reset();
+            clear();            
+        }
     };
 
     return (
@@ -78,8 +72,7 @@ export default function Cost ({categoryId}: InputProps){
                             mask='money'                            
                         />                                                                            
                     </Modal.Body>
-                    <Modal.Footer justifyContent='center'>
-                                              
+                    <Modal.Footer justifyContent='center'>                       
                         <MyButtonSubmit
                             text='Salvar'
                             loadingText='Salvando'
@@ -87,22 +80,18 @@ export default function Cost ({categoryId}: InputProps){
                             handleSubmite={handleSubmit}
                             onSubmit={onSubmit}
                             marginTop={0}
-                        />                           
-                      
+                        />
                     </Modal.Footer>
                 </Modal.Content>
             </Modal>
-
-            <FlatList
-                data={despesas}
-                keyExtractor={(item) => String(item.id)}
-                showsVerticalScrollIndicator={false}
-                renderItem={({item}) => (
-                    <Box padding={2} flexDirection='row' justifyContent='space-between'>  
+            
+            {name !== 'root' ?
+                <> 
+                    <Box flexDirection='row' justifyContent='space-between' marginTop={1} marginLeft={nivel === 1 ? 0 : nivel+0.5}>
                         <Link 
                             onPress={()=>{
-                                setCost({id: item.id, nome: item.nome}); 
-                                setModalVisible(true);
+                                setCost({id: id, nome: name}); 
+                                setModalVisible(true);                                
                             }} 
                             isUnderlined={false} 
                             _text={{
@@ -110,24 +99,35 @@ export default function Cost ({categoryId}: InputProps){
                                 fontSize: 16, 
                                 color: 'secondary.900'
                             }}>
-                            {item.nome}
-                        </Link>                    
+                            {name}
+                        </Link> 
                         <Link 
                             onPress={()=>{
-                                setCost({
-                                    id: item.id, nome: item.nome
-                                }); 
-                                setModalVisible(true);
+                                setCost({id: id, nome: name});  
+                                setModalVisible(true);                               
                             }} 
                             isUnderlined={false} 
                             _text={{
                                 fontWeight: 'bold', 
                                 fontSize: 16, 
                                 color: 'secondary.900'
-                            }}>R$ {item.valor}
-                        </Link>
+                            }}>
+                            R$ {expensesValue ? expensesValue : '0,00'}
+                        </Link>                       
                     </Box>
-                )}                
-            />
+                </>
+                : null}
+            
+            {children.map((child) => (
+                <>
+                    <Tree 
+                        key={child.id}
+                        categories={{id: child.id, name: child.name, children: child.children, expensesValue: child.expensesValue}} 
+                        nivel={nivel+1}/>
+                </>
+            ))}
         </>
-    );}
+    );
+};
+
+export default Tree;

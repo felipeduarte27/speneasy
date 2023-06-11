@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useEffect, useState, useContext} from 'react';
-import { Box, Text, FlatList } from 'native-base';
-import Cost from '../Cost';
+import { Box, Text } from 'native-base';
 import { Context } from '../../context/UserContext';
+import Tree from '../Cost';
 import api from '../../api/axios';
 
 interface Category {
@@ -11,33 +11,6 @@ interface Category {
     categoriesId: string
 }
 
-const Tree = ({ categories, nivel = 0 }: any) => {
-    const {name, children, expensesValue} = categories;
-
-    return (
-        <>
-            {name !== 'root' ?
-                <> 
-                    <Box flexDirection='row' justifyContent='space-between' marginTop={1} marginLeft={nivel === 1 ? 0 : nivel+0.5}>
-                        <Text fontWeight='bold' fontSize={16} color='secondary.900'>
-                            {name}
-                        </Text>
-                        <Text fontWeight='bold' fontSize={16} color='secondary.900'>
-                            R$ {expensesValue ? expensesValue : '0,00'}
-                        </Text>
-                    </Box>
-                </>
-                : null}
-            
-            {children.map((child) => (
-                <>
-                    <Tree categories={{name: child.name, children: child.children, expensesValue: child.expensesValue}} nivel={nivel+1}/>
-                </>
-            ))}
-        </>
-    );
-};
-
 export default function Expenses (){
     const [categories, setCategories] = useState<Category[]>([]);
     const [openScreen, setOpenScreen] = useState(false);
@@ -45,8 +18,7 @@ export default function Expenses (){
     
     const loadData = async () => {
         try{            
-            const apiReturn = await api.get(`/categories/findAll/${userContext.id}`);
-            console.log(apiReturn.data);
+            const apiReturn = await api.get(`/categories/findAll/${userContext.id}`);            
             setCategories(apiReturn.data);            
             setOpenScreen(true);
         } catch(error){
