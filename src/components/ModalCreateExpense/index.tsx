@@ -8,6 +8,7 @@ import MyButtonSubmit from '../MyButtonSubmit';
 import { useForm } from 'react-hook-form';
 import api from '../../api/axios';
 import { Context } from '../../context/UserContext';
+import { currencyToFloat } from '../../helpers';
 
 const schema = yup.object({
     value: yup.string().required('Campo Obrigatório')
@@ -43,14 +44,14 @@ const ModalCreateExpense = ({category, openModal, setOpenModal, loadData}: Input
     const onSubmit = async (data) => {
         try{
             setIsLoading(true); 
-            const date = new Date();        
+            const date = new Date();
             await api.post('/expenses/create', {
-                value: parseFloat(data.value.replace('R', '').replace('$', '').replace(',', '.').trim()),
+                value: currencyToFloat(data.value),
                 month: date.getMonth()+1,
                 year: date.getFullYear(),
                 userId: parseInt(userContext.id),
                 categoriesId: category.id
-            });            
+            });                        
         }catch(error){
             console.log(error);
         }finally{

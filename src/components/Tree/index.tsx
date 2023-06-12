@@ -17,8 +17,10 @@ const Tree = ({ categories, nivel = 0, handleCategory }: InputProps) => {
                 <> 
                     <Box flexDirection='row' justifyContent='space-between' marginTop={1} marginLeft={nivel === 1 ? 0 : nivel+0.5}>
                         <Link 
-                            onPress={()=>{                                
-                                handleCategory(id, name);                             
+                            onPress={()=>{  
+                                if(!(children.length > 0)){                              
+                                    handleCategory(id, name);  
+                                }                                
                             }} 
                             isUnderlined={false} 
                             _text={{
@@ -38,7 +40,7 @@ const Tree = ({ categories, nivel = 0, handleCategory }: InputProps) => {
                                 fontSize: 16, 
                                 color: 'secondary.900'
                             }}>
-                            R$ {expensesValue ? expensesValue.toFixed(2).replace('.', ',') : '0,00'}
+                            {expensesValue ? `R$ ${expensesValue.toFixed(2).toString().replaceAll('.', ',')}` : ''}
                         </Link>                       
                     </Box>
                 </>

@@ -29,9 +29,13 @@ export default function Expenses ({setIncome, setExpense}: InputProps){
         try{                    
             const apiReturn = await api.get(`/categories/findAll/${userContext.id}`);            
             setCategories(apiReturn.data); 
-            setIncome(100);
-            setExpense(100);           
+            setIncome(6500);
+            
+            const apiReturn2 = await api.get('/expenses/findTotalExpenseActualMonth');  
+                            
+            setExpense(apiReturn2.data);
             setOpenScreen(true);
+            
         } catch(error){
             console.log(error);
         }        
