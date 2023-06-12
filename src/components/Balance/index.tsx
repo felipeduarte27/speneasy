@@ -1,7 +1,12 @@
 import React from 'react';
 import { Box, Text, useTheme } from 'native-base';
 
-export default function Balance (){
+interface InputProps {
+    income: any,
+    expense: any
+}
+
+export default function Balance ({income, expense}: InputProps){
     const theme = useTheme();
     return (
         <Box 
@@ -18,7 +23,7 @@ export default function Balance (){
                 <Text alignSelf='center' fontSize={24} color='secondary.900' fontWeight='bold'>Saldo</Text>
                 <Box flexDirection='row' justifyContent='space-between'>
                     <Text marginRight={4} fontSize={22} color='primary.200' fontWeight='bold'>R$</Text>
-                    <Text fontSize={22} color='primary.200' fontWeight='bold'>600,24</Text>
+                    <Text fontSize={22} color='primary.200' fontWeight='bold'>{income}</Text>
                 </Box>
             </Box>
 
@@ -26,7 +31,7 @@ export default function Balance (){
                 <Text alignSelf='center' fontSize={24} color='secondary.900' fontWeight='bold'>Gastos</Text>
                 <Box flexDirection='row' justifyContent='space-between'>
                     <Text marginRight={4} fontSize={22} color={theme.colors.primary[300]} fontWeight='bold'>R$</Text>
-                    <Text fontSize={22} color={theme.colors.primary[300]} fontWeight='bold'>200,24</Text>
+                    <Text fontSize={22} color={theme.colors.primary[300]} fontWeight='bold'>{expense}</Text>
                 </Box>
             </Box>
           

@@ -13,7 +13,12 @@ interface Category {
     categoriesId: string
 }
 
-export default function Expenses (){
+interface InputProps{
+    setIncome: any,
+    setExpense: any
+}
+
+export default function Expenses ({setIncome, setExpense}: InputProps){
     const [categories, setCategories] = useState<Category[]>([]);
     const [category, setCategory] = useState({id: 0, name: ''});
     const [openScreen, setOpenScreen] = useState(false);
@@ -23,7 +28,9 @@ export default function Expenses (){
     const loadData = async () => {
         try{                    
             const apiReturn = await api.get(`/categories/findAll/${userContext.id}`);            
-            setCategories(apiReturn.data);            
+            setCategories(apiReturn.data); 
+            setIncome(100);
+            setExpense(100);           
             setOpenScreen(true);
         } catch(error){
             console.log(error);

@@ -38,7 +38,7 @@ const Tree = ({ categories, nivel = 0, handleCategory }: InputProps) => {
                                 fontSize: 16, 
                                 color: 'secondary.900'
                             }}>
-                            R$ {expensesValue ? expensesValue : '0,00'}
+                            R$ {expensesValue ? expensesValue.toFixed(2).replace('.', ',') : '0,00'}
                         </Link>                       
                     </Box>
                 </>
