@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useEffect, useState, useContext} from 'react';
 import { Box, Text } from 'native-base';
 import { Context } from '../../context/UserContext';
-import Tree from '../Cost';
+import Tree from '../Tree';
 import api from '../../api/axios';
+import ModalCreateExpense from '../ModalCreateExpense';
 
 interface Category {
     id: number,
@@ -13,11 +15,13 @@ interface Category {
 
 export default function Expenses (){
     const [categories, setCategories] = useState<Category[]>([]);
+    const [category, setCategory] = useState({id: 0, name: ''});
     const [openScreen, setOpenScreen] = useState(false);
+    const [openModal, setOpenModal] = useState(false);
     const { user: userContext } = useContext(Context);
     
     const loadData = async () => {
-        try{            
+        try{                    
             const apiReturn = await api.get(`/categories/findAll/${userContext.id}`);            
             setCategories(apiReturn.data);            
             setOpenScreen(true);
@@ -26,7 +30,12 @@ export default function Expenses (){
         }        
     };
 
-    useEffect(()=>{
+    const handleCategory = async (id, name: any) => { 
+        setCategory({id: id, name: name});       
+        setOpenModal(true);              
+    };
+
+    useEffect(()=>{        
         loadData();
     },[]);
 
@@ -34,8 +43,9 @@ export default function Expenses (){
         <>
             {openScreen ? 
                 <Box paddingX={14}>
+                    <ModalCreateExpense category={category} openModal={openModal} setOpenModal={setOpenModal} loadData={loadData}/>
                     <Text fontSize={18} fontWeight='bold' alignSelf='center'>Desepesas</Text>
-                    <Tree categories={categories} />
+                    <Tree categories={categories} nivel={0} handleCategory={handleCategory}/>
                 </Box>
                 : null
             }
