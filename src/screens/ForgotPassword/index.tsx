@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-constant-condition */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-var-requires */
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { Box, Text, Link } from 'native-base';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';

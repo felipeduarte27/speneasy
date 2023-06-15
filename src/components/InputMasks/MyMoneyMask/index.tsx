@@ -41,6 +41,7 @@ export default function MyMoneyMask ({control, name, errors, mask }: InputProps)
                 <TextInputMask                    
                     type={mask}
                     value={value}
+                    autoFocus={true}
                     onChangeText={onChange}                    
                     options={{
                         precision: 2,

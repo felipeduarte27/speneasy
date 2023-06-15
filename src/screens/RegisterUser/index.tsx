@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
 /* eslint-disable no-constant-condition */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-var-requires */
-import React, { useCallback, useLayoutEffect } from 'react';
+import React from 'react';
 import { Box, Link } from 'native-base';
 import MyFormUser from '../../components/MyFormUser';
 import { useToast } from 'native-base';

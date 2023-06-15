@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { Box, Text, useTheme } from 'native-base';
 
@@ -24,7 +23,9 @@ export default function Balance ({income, expense}: InputProps){
                 <Text alignSelf='center' fontSize={24} color='secondary.900' fontWeight='bold'>Saldo</Text>
                 <Box flexDirection='row' justifyContent='space-between'>
                     <Text marginRight={4} fontSize={22} color='primary.200' fontWeight='bold'>R$</Text>
-                    <Text fontSize={22} color='primary.200' fontWeight='bold'>{income}</Text>
+                    <Text fontSize={22} color='primary.200' fontWeight='bold'>{
+                        income.toFixed(2).toString().replace('.', ',')
+                    }</Text>
                 </Box>
             </Box>
 

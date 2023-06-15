@@ -16,6 +16,7 @@ import { Ionicons } from '@expo/vector-icons';
 import HistoricSearchForm from '../screens/HistoricSearchForm';
 import HistoricData from '../screens/HistoricData';
 import UpdatePassword from '../screens/UpdatePassword';
+import Incomes from '../screens/Incomes';
 import { useTheme } from 'native-base';
 
 const Stack = createNativeStackNavigator();
@@ -33,12 +34,13 @@ export const Authenticated = function(){
     const theme = useTheme();
     return (
         <Drawer.Navigator 
-            drawerContent={props => <CustomDrawer {...props}/>} 
+            drawerContent={props => <CustomDrawer {...props}/>}
             screenOptions={{ 
                 headerShown: false, 
                 drawerActiveBackgroundColor: theme.colors.primary[600],
                 drawerActiveTintColor: theme.colors.primary[100],
                 drawerInactiveTintColor: theme.colors.secondary[900],
+                drawerStyle: {width: '100%'},
                 unmountOnBlur: true,
                 drawerLabelStyle: {
                     marginLeft: -15,
@@ -55,15 +57,23 @@ export const Authenticated = function(){
             }}/>  
             <Drawer.Screen name="updatePassword" component={UpdatePassword} options={{
                 title: 'Senha',                    
-                drawerIcon: ({color}) => (<Ionicons name='person' size={16} color={color}/>)
+                drawerIcon: ({color}) => (<Ionicons name='key-sharp' size={16} color={color}/>)
             }}/>  
             <Drawer.Screen name="categories" component={Categories} options={{
                 title: 'Categorias',                    
                 drawerIcon: ({color}) => (<Ionicons name='list' size={16} color={color}/>)
             }}/>
+            <Drawer.Screen name="incomes" component={Incomes} options={{
+                title: 'Receitas',                    
+                drawerIcon: ({color}) => (<Ionicons name='add-circle-sharp' size={16} color={color}/>)
+            }}/>
+            <Drawer.Screen name="incomes2" component={Incomes} options={{
+                title: 'Recorrência',                    
+                drawerIcon: ({color}) => (<Ionicons name='reload-circle-sharp' size={16} color={color}/>)
+            }}/>
             <Drawer.Screen name="historic" component={HistoricStack} options={{
                 title: 'Histórico',                    
-                drawerIcon: ({color}) => (<Ionicons name='today' size={16} color={color}/>)
+                drawerIcon: ({color}) => (<Ionicons name='calendar-sharp' size={16} color={color}/>)
             }}/> 
             <Drawer.Screen
                 name='exit' 

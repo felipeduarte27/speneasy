@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, {useState, useContext} from 'react';
 import { Modal } from 'native-base';
 import { yupResolver } from '@hookform/resolvers/yup';

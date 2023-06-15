@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Text } from 'native-base';
 import React, { useState, useEffect, useContext } from 'react';
 import Header from '../../components/Header';

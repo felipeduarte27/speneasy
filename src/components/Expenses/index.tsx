@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, {useEffect, useState, useContext} from 'react';
 import { Box, Text } from 'native-base';
 import { Context } from '../../context/UserContext';
@@ -25,20 +23,19 @@ export default function Expenses ({setIncome, setExpense}: InputProps){
     const [openModal, setOpenModal] = useState(false);
     const { user: userContext } = useContext(Context);
     
-    const loadData = async () => {
-        try{                    
-            const apiReturn = await api.get(`/categories/findAll/${userContext.id}`);            
-            setCategories(apiReturn.data); 
-            setIncome(6500);
-            
-            const apiReturn2 = await api.get('/expenses/findTotalExpenseActualMonth');  
-                            
-            setExpense(apiReturn2.data);
-            setOpenScreen(true);
-            
-        } catch(error){
+    const loadData = async () => {  
+        Promise.all([
+            api.get(`/categories/findAll/${userContext.id}`), 
+            api.get('/expenses/findTotalExpenseActualMonth'),
+            api.get(`/incomes/find/${userContext.id}`)
+        ]).then((values) => {
+            setCategories(values[0].data);
+            setExpense(values[1].data);
+            setIncome(values[2].data.value - values[1].data);
+            setOpenScreen(true);               
+        }).catch((error)=>{
             console.log(error);
-        }        
+        });      
     };
 
     const handleCategory = async (id, name: any) => { 
