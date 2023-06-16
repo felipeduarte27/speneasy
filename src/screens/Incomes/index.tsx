@@ -105,8 +105,8 @@ export default function Incomes ({navigation}: InputProps) {
                 <Box flex={1} backgroundColor='primary.100'>
                     <Header navigation={navigation}/>
                     <Box marginTop={10} paddingX={8}>
-                        <Text alignSelf='center' fontSize='2xl' fontWeight='bold'>
-                            Receita
+                        <Text alignSelf='center' fontSize='2xl' fontWeight='bold' color='primary.600'>
+                            Receita Mensal
                         </Text>                       
                         
                         <MyMoneyMask

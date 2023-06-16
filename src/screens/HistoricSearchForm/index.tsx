@@ -34,7 +34,7 @@ export default function HistoricSearchForm({navigation}: InputProps){
             <Header navigation={navigation}/>
             <Box marginTop={10}>
                 <Box paddingX={8}>
-                    <Text alignSelf='center' fontWeight='bold' fontSize='2xl'>Escolha um Período</Text>                
+                    <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize='2xl'>Escolha um Período</Text>                
                     <Box>
                         <Box>
                             <MyYearMask

@@ -96,7 +96,7 @@ export default function Categories ({navigation}: InputProps) {
                 (<Box flex={1} backgroundColor='primary.100'>
                     <Header navigation={navigation}/>
                     <Box paddingX={8} marginTop={10}>
-                        <Text alignSelf='center' fontSize='2xl' fontWeight='bold'>
+                        <Text alignSelf='center' fontSize='2xl' fontWeight='bold' color='primary.600'>
                             {category.name ? 'Atualizar' : 'Cadastrar'} Categoria
                         </Text>                        
                         <Box>
@@ -131,7 +131,7 @@ export default function Categories ({navigation}: InputProps) {
                         </Box>
                     </Box>
                     <Box borderTopWidth={1} borderColor='secondary.900' margin={4}> 
-                        <Text alignSelf='center' fontWeight='bold' fontSize={16} marginTop={4}>Lista de Categorias</Text>
+                        <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize={16} marginTop={4}>Lista de Categorias</Text>
                         <FlatList
                             marginLeft={4}
                             marginRight={4}

@@ -52,7 +52,7 @@ export default function Expenses ({setIncome, setExpense}: InputProps){
             {openScreen ? 
                 <Box paddingX={14}>
                     <ModalCreateExpense category={category} openModal={openModal} setOpenModal={setOpenModal} loadData={loadData}/>
-                    <Text fontSize={18} fontWeight='bold' alignSelf='center'>Desepesas</Text>
+                    <Text fontSize={18} color='primary.600' fontWeight='bold' alignSelf='center'>Despesas</Text>
                     <Tree categories={categories} nivel={0} handleCategory={handleCategory}/>
                 </Box>
                 : null

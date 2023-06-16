@@ -53,7 +53,7 @@ export default function UpdatePassword({navigation}: InputProps) {
         <Box flex={1} backgroundColor='primary.100'>
             <Header navigation={navigation}/>
             <Box paddingX={8} marginTop={10}>
-                <Text alignSelf='center' fontSize='2xl' fontWeight='bold'>Atualizar Senha</Text>
+                <Text alignSelf='center' fontSize='2xl' fontWeight='bold' color='primary.600'>Atualizar Senha</Text>
                 <MyInput
                     name='password' 
                     placeholder='Senha'               
