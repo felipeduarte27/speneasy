@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Text } from 'native-base';
-import React, { useState } from 'react';
+import React from 'react';
 import Header from '../../components/Header';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -10,24 +8,25 @@ import MyButtonSubmit from '../../components/MyButtonSubmit';
 import MyYearMask from '../../components/InputMasks/MyYearMask';
 import MySelectMonth from '../../components/MySelectMonth';
 
+
 const schema = yup.object({
     ano: yup.string().required('Campo obrigatório !'),
     mes: yup.string().required('Campo obrigatório !')
 });
 
 interface InputProps {
-  navigation: any
+  navigation: any,
 }
 
 export default function HistoricSearchForm({navigation}: InputProps){
-    const [isLoading, setIsLoading] = useState(false);
-    const {control, handleSubmit, reset, formState : {errors}} = useForm({
+    const {control, handleSubmit, reset, setValue,formState : {errors}} = useForm({
         resolver: yupResolver(schema)
     });
 
-    const onSubmit = (data) => {
-        console.log(data);
-        navigation.navigate('historicData');
+    const onSubmit = async (data) => { 
+        reset();
+        setValue('mes', ''); 
+        navigation.navigate('historicData', {month: data.mes, year: data.ano});
     };
 
     return(
@@ -55,7 +54,7 @@ export default function HistoricSearchForm({navigation}: InputProps){
                     <MyButtonSubmit
                         text='Consultar'
                         loadingText='Consultando'
-                        isLoading={isLoading}
+                        isLoading={false}
                         handleSubmite={handleSubmit}
                         onSubmit={onSubmit}
                         marginTop={4}

@@ -20,8 +20,8 @@ export default function MySelectMonth ({ control, name, errors }: InputProps) {
                     <Select 
                         borderColor={errors[`${name}`] ? 'primary.300' : 'secondary.900'}                                        
                         selectedValue={value}                                 
-                        accessibilityLabel="Escolha uma categoria" 
-                        placeholder="Escolha uma categoria" 
+                        accessibilityLabel="Escolha uma mês" 
+                        placeholder="Escolha um mês" 
                         _selectedItem={{
                             bg: theme.colors.primary[600],
                             _text: {
@@ -40,7 +40,7 @@ export default function MySelectMonth ({ control, name, errors }: InputProps) {
                         <Select.Item label='Março' value='3' _text={{fontWeight: 'bold',}}/>
                         <Select.Item label='Abril' value='4' _text={{fontWeight: 'bold',}}/>
                         <Select.Item label='Maio' value='5' _text={{fontWeight: 'bold',}}/>
-                        <Select.Item label='Junho' value='' _text={{fontWeight: 'bold',}}/>
+                        <Select.Item label='Junho' value='6' _text={{fontWeight: 'bold',}}/>
                         <Select.Item label='Julho' value='7' _text={{fontWeight: 'bold',}}/>
                         <Select.Item label='Agosto' value='8' _text={{fontWeight: 'bold',}}/>
                         <Select.Item label='Setembro' value='9' _text={{fontWeight: 'bold',}}/>
