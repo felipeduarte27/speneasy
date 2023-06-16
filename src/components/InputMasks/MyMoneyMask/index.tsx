@@ -18,8 +18,8 @@ export default function MyMoneyMask ({control, name, errors, mask }: InputProps)
     const styles = StyleSheet.create({
         input: {
             width: '100%',
-            height: 50,
-            borderWidth: 0.5,        
+            height: 40,
+            borderWidth: 0.3,        
             borderRadius: 4,
             padding: 10,
             backgroundColor: theme.colors.primary[100],

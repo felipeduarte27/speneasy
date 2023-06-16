@@ -17,6 +17,8 @@ import HistoricSearchForm from '../screens/HistoricSearchForm';
 import HistoricData from '../screens/HistoricData';
 import UpdatePassword from '../screens/UpdatePassword';
 import Incomes from '../screens/Incomes';
+import Recurrents from '../screens/Recurrent/indexx';
+
 import { useTheme } from 'native-base';
 
 const Stack = createNativeStackNavigator();
@@ -67,7 +69,7 @@ export const Authenticated = function(){
                 title: 'Receitas',                    
                 drawerIcon: ({color}) => (<Ionicons name='add-circle-sharp' size={16} color={color}/>)
             }}/>
-            <Drawer.Screen name="incomes2" component={Incomes} options={{
+            <Drawer.Screen name="incomes2" component={Recurrents} options={{
                 title: 'Recorrência',                    
                 drawerIcon: ({color}) => (<Ionicons name='reload-circle-sharp' size={16} color={color}/>)
             }}/>
