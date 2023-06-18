@@ -17,7 +17,7 @@ import HistoricSearchForm from '../screens/HistoricSearchForm';
 import HistoricData from '../screens/HistoricData';
 import UpdatePassword from '../screens/UpdatePassword';
 import Incomes from '../screens/Incomes';
-import Recurrents from '../screens/Recurrent/indexx';
+import Recurrents from '../screens/Recurrent';
 
 import { useTheme } from 'native-base';
 

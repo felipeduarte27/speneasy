@@ -50,7 +50,11 @@ export default function MyMoneyMask ({control, name, errors, mask }: InputProps)
                         unit: 'R$ ',
                         suffixUnit: ''
                     }}
-                    style={[styles.input, { borderColor: !errors[`${name}`] ? theme.colors.secondary[900] : theme.colors.primary[300]}]}
+                    style={[
+                        styles.input, 
+                        { borderColor: !errors[`${name}`] ? theme.colors.secondary[900] : theme.colors.primary[300]},
+                        { borderWidth: !errors[`${name}`] ? 0.3 : 1}
+                    ]}
                     placeholder='Valor'
                 />
             )}
