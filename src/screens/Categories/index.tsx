@@ -132,48 +132,52 @@ export default function Categories ({navigation}: InputProps) {
                     </Box>
                     <Box borderTopWidth={1} borderColor='secondary.900' margin={4}> 
                         <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize={16} marginTop={4}>Lista de Categorias</Text>
-                        <FlatList
-                            marginLeft={4}
-                            marginRight={4}
-                            data={categories}
-                            keyExtractor={(item) => String(item.id)}
-                            showsVerticalScrollIndicator={false}
-                            renderItem={({item}) => (
-                                <Box flexDirection='row' alignItems='center' justifyContent='space-between'>
-                                    <Text fontWeight='bold' color='secondary.900' fontSize={16}>{item.name}</Text> 
-                                    <Box flexDirection='row' alignContent='center' alignItems='center'>
-                                        <IconButton                                                      
-                                            onPress={()=>{                                                                                               
-                                                setValue('nome', item.name); 
-                                                setValue('categorias', item.categoriesId ? item.categoriesId : '0'); 
-                                                setCategory({
-                                                    id: item.id, 
-                                                    name: item.name, 
-                                                    categoriesId: item.categoriesId});
-                                            }} 
-                                            _pressed={{backgroundColor: 'primary.100'}}                                                                                                                                        
-                                            icon={
-                                                <Icon color='primary.600' as={Ionicons} name='create-sharp'/>
-                                            }/>  
-                                        <IconButton
-                                            onPress={async ()=>{
-                                                try{
-                                                    await api.delete(`categories/delete/${item.id}`);
-                                                    const apiReturn = await api.get(`/categories/findAllActives/${userContext.id}`); 
-                                                    setCategories(apiReturn.data);                                                
-                                                }catch(error){
-                                                    console.log(error);
+                        {categories.length > 0 ? 
+                            <FlatList
+                                marginLeft={4}
+                                marginRight={4}
+                                data={categories}
+                                keyExtractor={(item) => String(item.id)}
+                                showsVerticalScrollIndicator={false}
+                                renderItem={({item}) => (
+                                    <Box flexDirection='row' alignItems='center' justifyContent='space-between'>
+                                        <Text fontWeight='bold' color='secondary.900' fontSize={16}>{item.name}</Text> 
+                                        <Box flexDirection='row' alignContent='center' alignItems='center'>
+                                            <IconButton                                                      
+                                                onPress={()=>{                                                                                               
+                                                    setValue('nome', item.name); 
+                                                    setValue('categorias', item.categoriesId ? item.categoriesId : '0'); 
+                                                    setCategory({
+                                                        id: item.id, 
+                                                        name: item.name, 
+                                                        categoriesId: item.categoriesId});
+                                                }} 
+                                                _pressed={{backgroundColor: 'primary.100'}}                                                                                                                                        
+                                                icon={
+                                                    <Icon color='primary.600' as={Ionicons} name='create-sharp'/>
+                                                }/>  
+                                            <IconButton
+                                                onPress={async ()=>{
+                                                    try{
+                                                        await api.delete(`categories/delete/${item.id}`);
+                                                        const apiReturn = await api.get(`/categories/findAllActives/${userContext.id}`); 
+                                                        setCategories(apiReturn.data);                                                
+                                                    }catch(error){
+                                                        console.log(error);
+                                                    }
+                                                }}
+                                                _pressed={{backgroundColor: 'primary.100'}}
+                                                icon={
+                                                    <Icon color='primary.600' as={Ionicons} name='trash'/>
                                                 }
-                                            }}
-                                            _pressed={{backgroundColor: 'primary.100'}}
-                                            icon={
-                                                <Icon color='primary.600' as={Ionicons} name='trash'/>
-                                            }
-                                        />                         
+                                            />                         
+                                        </Box>
                                     </Box>
-                                </Box>
-                            )}                
-                        />
+                                )}                
+                            />
+                            : <Text marginTop={2}  alignSelf='center'fontWeight='bold' color='secondary.900' fontSize={16}>
+                                       Não há categorias cadastradas !
+                            </Text>} 
                     </Box>
                 </Box>) : null
             }

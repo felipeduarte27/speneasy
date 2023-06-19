@@ -8,7 +8,8 @@ import ModalCreateExpense from '../ModalCreateExpense';
 interface Category {
     id: number,
     name: string,
-    categoriesId: string
+    categoriesId: string,
+    children: any
 }
 
 interface InputProps{
@@ -17,7 +18,7 @@ interface InputProps{
 }
 
 export default function Expenses ({setIncome, setExpense}: InputProps){
-    const [categories, setCategories] = useState<Category[]>([]);
+    const [categories, setCategories] = useState<Category>({id: 0, name: '', categoriesId: '', children: []});
     const [category, setCategory] = useState({id: 0, name: ''});
     const [openScreen, setOpenScreen] = useState(false);
     const [openModal, setOpenModal] = useState(false);
@@ -30,6 +31,7 @@ export default function Expenses ({setIncome, setExpense}: InputProps){
             api.get(`/incomes/find/${userContext.id}`)
         ]).then((values) => {
             setCategories(values[0].data);
+            console.log(values[0].data);
             setExpense(values[1].data);
             setIncome(values[2].data.value - values[1].data);
             setOpenScreen(true);               
@@ -53,7 +55,11 @@ export default function Expenses ({setIncome, setExpense}: InputProps){
                 <Box paddingX={14}>
                     <ModalCreateExpense category={category} openModal={openModal} setOpenModal={setOpenModal} loadData={loadData}/>
                     <Text fontSize={18} color='primary.600' fontWeight='bold' alignSelf='center'>Despesas</Text>
-                    <Tree categories={categories} nivel={0} handleCategory={handleCategory}/>
+                    {categories.children.length > 0 ? 
+                        <Tree categories={categories} nivel={0} handleCategory={handleCategory}/>
+                        : <Text marginTop={2}  alignSelf='center'fontWeight='bold' color='secondary.900' fontSize={16}>
+                                       Não há categorias ativas !
+                        </Text>} 
                 </Box>
                 : null
             }

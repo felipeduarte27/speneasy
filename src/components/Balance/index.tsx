@@ -24,7 +24,7 @@ export default function Balance ({income, expense}: InputProps){
                 <Box flexDirection='row' justifyContent='space-between'>
                     <Text marginRight={1} fontSize={22} color='primary.200' fontWeight='bold'>R$</Text>
                     <Text fontSize={22} color='primary.200' fontWeight='bold'>{
-                        income.toFixed(2).toString().replace('.', ',')
+                        income ? income.toFixed(2).toString().replace('.', ',') : '0,00'
                     }</Text>
                 </Box>
             </Box>

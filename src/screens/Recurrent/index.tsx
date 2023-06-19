@@ -1,4 +1,4 @@
-import { Box, Text, useToast } from 'native-base';
+import { Box, Text, useToast, FlatList, IconButton, Icon } from 'native-base';
 import React, { useEffect, useState, useContext } from 'react';
 import Header from '../../components/Header';
 import { useForm } from 'react-hook-form';
@@ -12,6 +12,7 @@ import { Context } from '../../context/UserContext';
 import MyMonthYearMask from '../../components/InputMasks/MyMonthYearMask';
 import { currencyToFloat } from '../../helpers';
 import MyToastBox from '../../components/MyToastBox';
+import {Ionicons} from '@expo/vector-icons';
 
 const schema = yup.object({
     value: yup.string().required('Campo obrigatório !'),
@@ -26,6 +27,7 @@ interface InputProps {
 
 export default function Recurrents({navigation}: InputProps){
     const [categories, setCategories] = useState([]);
+    const [recurrents, setRecurrents] = useState([]);
     const [openScreen, setOpenScreen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const { user: userContext } = useContext(Context);
@@ -33,6 +35,21 @@ export default function Recurrents({navigation}: InputProps){
     const {control, handleSubmit, reset, setValue, formState : {errors}} = useForm({
         resolver: yupResolver(schema)
     });
+
+    const loadData = async () => {
+      
+        Promise.all([
+            api.get(`/categories/findAllActives/${userContext.id}`),
+            api.get(`/recurrents/findAllActives/${userContext.id}`)
+        ]).then((values)=>{
+            setCategories(values[0].data);
+            setRecurrents(values[1].data);
+            setOpenScreen(true);
+        }).catch((error)=>{
+            console.log(error);
+        });  
+          
+    };
 
     const onSubmit = async (data) => { 
         
@@ -62,72 +79,112 @@ export default function Recurrents({navigation}: InputProps){
             reset();
             setValue('categorias', ''); 
             setIsLoading(false);
+            loadData();
         }
-    };
-
-    const loadData = async () => {
-        const apiReturn = await api.get(`/categories/findAllActives/${userContext.id}`);
-        setCategories(apiReturn.data);  
-        setOpenScreen(true);
     };
 
     useEffect(()=> {
         loadData();
-    });
+    }, []);
+
     return(
         <>
             {openScreen ? 
-                <Box flex={1} backgroundColor='primary.100'>
-                    <Header navigation={navigation}/>
-                    <Box marginTop={10}>
-                        <Box paddingX={8}>
-                            <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize='2xl'>Despesa Recorrente</Text>                
-                            <Box>
+                <>
+                    <Box flex={1} backgroundColor='primary.100'>
+                        <Header navigation={navigation}/>
+                        <Box marginTop={10}>
+                            <Box paddingX={8}>
+                                <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize='2xl'>Despesa Recorrente</Text>                
                                 <Box>
-                                    <MyMoneyMask
-                                        control={control}
-                                        errors={errors}
-                                        name='value'
-                                        mask='money'                            
-                                    /> 
-                                </Box>
-                                <Box marginTop={2}>
-                                    <MyInputSelect 
-                                        control={control}
-                                        name='categorias'
-                                        errors={errors}
-                                        data={categories}
-                                        placeholder='Escolha uma Categoria'
-                                    />
-                                </Box>   
-                                <Box flexDirection='row' alignContent='spaceBetween'>
-                                    <Box width='48.5%' marginRight={1}>
-                                        <MyMonthYearMask
+                                    <Box>
+                                        <MyMoneyMask
                                             control={control}
                                             errors={errors}
-                                            name='start'                                        
-                                        />  
+                                            name='value'
+                                            mask='money'                            
+                                        /> 
                                     </Box>
-                                    <Box width='48.5%' marginLeft={1}>
-                                        <MyMonthYearMask
+                                    <Box marginTop={2}>
+                                        <MyInputSelect 
                                             control={control}
+                                            name='categorias'
                                             errors={errors}
-                                            name='end'                                        
-                                        />  
-                                    </Box>
-                                </Box>              
-                            </Box>      
-                            <MyButtonSubmit
-                                text='Cadastrar'
-                                loadingText='Cadastrando'
-                                isLoading={isLoading}
-                                handleSubmite={handleSubmit}
-                                onSubmit={onSubmit}
-                                marginTop={4}
-                            />  
+                                            data={categories}
+                                            placeholder='Escolha uma Categoria'
+                                        />
+                                    </Box>   
+                                    <Box flexDirection='row' alignContent='spaceBetween'>
+                                        <Box width='48.5%' marginRight={1}>
+                                            <MyMonthYearMask
+                                                control={control}
+                                                errors={errors}
+                                                name='start'                                        
+                                            />  
+                                        </Box>
+                                        <Box width='48.5%' marginLeft={1}>
+                                            <MyMonthYearMask
+                                                control={control}
+                                                errors={errors}
+                                                name='end'                                        
+                                            />  
+                                        </Box>
+                                    </Box>              
+                                </Box>      
+                                <MyButtonSubmit
+                                    text='Cadastrar'
+                                    loadingText='Cadastrando'
+                                    isLoading={isLoading}
+                                    handleSubmite={handleSubmit}
+                                    onSubmit={onSubmit}
+                                    marginTop={4}
+                                />  
+                            </Box>
+                        </Box>
+                        <Box borderTopWidth={1} borderColor='secondary.900' margin={4}> 
+                            <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize={16} marginTop={4}>Lista de Recorrências</Text>
+                            {recurrents.length > 0 ? 
+                                <FlatList
+                                    marginLeft={4}
+                                    marginRight={4}
+                                    data={recurrents}
+                                    keyExtractor={(item) => String(item.id)}
+                                    showsVerticalScrollIndicator={false}
+                                    renderItem={({item}) => (
+                                        <Box flexDirection='row' alignItems='center' justifyContent='space-between'>
+                                            <Text fontWeight='bold' color='secondary.900' fontSize={16} maxWidth={50}>
+                                                {item.categories.name.length > 6 ? 
+                                                    item.categories.name.substring(0, 3)+'...': item.categories.name}
+                                            </Text>  
+                                            <Text fontWeight='bold' color='secondary.900' fontSize={16}>
+                                                {
+                                                    item.value.toFixed(2).toString().replace('.', ',')
+                                                }
+                                            </Text>  
+                                            <IconButton
+                                                onPress={async ()=>{
+                                                    try{
+                                                        await api.delete(`recurrents/delete/${item.id}`);
+                                                        const apiReturn = await api.get(`/recurrents/findAllActives/${userContext.id}`); 
+                                                        setRecurrents(apiReturn.data);                                               
+                                                    }catch(error){
+                                                        console.log(error);
+                                                    }
+                                                }}
+                                                _pressed={{backgroundColor: 'primary.100'}}
+                                                icon={
+                                                    <Icon color='primary.600' as={Ionicons} name='trash'/>
+                                                }
+                                            />                                        
+                                        </Box>
+                                    )}                
+                                />
+                                : <Text marginTop={2}  alignSelf='center'fontWeight='bold' color='secondary.900' fontSize={16}>
+                                       Não há recorrências cadastradas !
+                                </Text>}                            
                         </Box>
                     </Box>
-                </Box>
+                </>
                 : null
             }
         </>
