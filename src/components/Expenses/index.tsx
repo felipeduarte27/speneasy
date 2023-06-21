@@ -28,12 +28,12 @@ export default function Expenses ({setIncome, setExpense}: InputProps){
         Promise.all([
             api.get(`/categories/findAll/${userContext.id}`), 
             api.get('/expenses/findTotalExpenseActualMonth'),
-            api.get(`/incomes/find/${userContext.id}`)
+            api.get(`/incomes/find/${userContext.id}`),
+            api.get('/recurrents/findTotalRecurrentsActualMonth')
         ]).then((values) => {
             setCategories(values[0].data);
-            console.log(values[0].data);
-            setExpense(values[1].data);
-            setIncome(values[2].data.value - values[1].data);
+            setExpense(values[1].data + values[3].data);
+            setIncome(values[2].data.value - (values[1].data + values[3].data));
             setOpenScreen(true);               
         }).catch((error)=>{
             console.log(error);

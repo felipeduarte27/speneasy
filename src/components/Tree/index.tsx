@@ -9,8 +9,8 @@ interface InputProps {
 }
 
 const Tree = ({ categories, nivel = 0, handleCategory }: InputProps) => {   
-    const {id, name, children, expensesValue} = categories;
-
+    const {id, name, children, expensesValue, recurrentValue} = categories;
+    
     return (
         <>
             {name !== 'root' ?
@@ -38,9 +38,13 @@ const Tree = ({ categories, nivel = 0, handleCategory }: InputProps) => {
                                 fontSize: 16, 
                                 color: 'secondary.900'
                             }}>
-                            {expensesValue ? `R$ ${expensesValue.toFixed(2).toString().replaceAll('.', ',')}` : 
-                                !(children.length > 0) ? 'R$ 0,00' : ''
+                            {recurrentValue && expensesValue ? `R$ ${
+                                (recurrentValue + expensesValue).toFixed(2).toString().replaceAll('.', ',')}` : 
+                                recurrentValue ? `R$ ${recurrentValue.toFixed(2).toString().replaceAll('.', ',')}` :
+                                    expensesValue ? `R$ ${expensesValue.toFixed(2).toString().replaceAll('.', ',')}` :
+                                        !(children.length > 0) ? 'R$ 0,00' : ''
                             }
+
                         </Link>                       
                     </Box>
                 </>
@@ -50,7 +54,13 @@ const Tree = ({ categories, nivel = 0, handleCategory }: InputProps) => {
                 <>
                     <Tree 
                         key={child.id}
-                        categories={{id: child.id, name: child.name, children: child.children, expensesValue: child.expensesValue}} 
+                        categories={{
+                            id: child.id, 
+                            name: child.name, children: 
+                            child.children, 
+                            expensesValue: child.expensesValue,
+                            recurrentValue: child.recurrentValue
+                        }} 
                         nivel={nivel+1}
                         handleCategory={handleCategory}/>
                 </>
