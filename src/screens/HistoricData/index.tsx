@@ -23,18 +23,21 @@ export default function HistoricData ({navigation, route}: InputProps) {
     const { month, year } = route.params;
 
     const loadData = async () => {
-        try{
-
-            const returnApi = await api.get(`categories/findByPeriod/${month}/${year}`);
-            setCategories(returnApi.data);
-            const returnApi2 = await api.get(`/expenses/findTotalExpensesByPeriod/${month}/${year}`);
-            setTotalExpenses(returnApi2.data);
-           
-        }catch(error){
-            console.log(error);
-        }finally{
+       
+        Promise.all(
+            [
+                api.get(`categories/findByPeriod/${month}/${year}`),
+                api.get(`/expenses/findTotalExpensesByPeriod/${month}/${year}`),
+                api.get(`/recurrents/findTotalRecurrentsByPeriod/${month}/${year}`)
+            ]
+        ).then((values)=> {
+                
+            setCategories(values[0].data);
+            setTotalExpenses(values[1].data + values[2].data);
             setOpenScreen(true);
-        }
+
+        }).catch((error)=> console.log(error));    
+       
     };
 
     useEffect(()=>{        
