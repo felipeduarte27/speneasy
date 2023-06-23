@@ -52,7 +52,7 @@ export default function ForgotPassword({navigation}: InputProps){
         <Box flex={1} flexDir='column' bg='primary.100'>
             
             <Box flex={1} flexDir='column' alignContent='center' justifyContent='center' padding={8}>
-                <Text alignSelf='center' fontSize='2xl' fontWeight='bold'>
+                <Text alignSelf='center' fontSize={16} fontWeight='bold' color='primary.600'>
                   Recuperar Senha
                 </Text>
 

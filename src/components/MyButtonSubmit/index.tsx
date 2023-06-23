@@ -16,6 +16,8 @@ export default function MyButtonSubmit({text, loadingText, isLoading, handleSubm
     return (
         <>
             <Button 
+                padding={2}                           
+                fontSize={16}
                 isLoading={isLoading}
                 isLoadingText={loadingText}
                 onPress={handleSubmite(onSubmit)}
