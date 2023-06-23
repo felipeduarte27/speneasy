@@ -23,7 +23,7 @@ const Tree = ({ categories, nivel = 0, handleCategory }: InputProps) => {
                             isUnderlined={false} 
                             _text={{
                                 fontWeight: 'bold', 
-                                fontSize: 16, 
+                                fontSize: 14, 
                                 color: 'secondary.900'
                             }}>
                             {name}
@@ -35,7 +35,7 @@ const Tree = ({ categories, nivel = 0, handleCategory }: InputProps) => {
                             isUnderlined={false} 
                             _text={{
                                 fontWeight: 'bold', 
-                                fontSize: 16, 
+                                fontSize: 14, 
                                 color: 'secondary.900'
                             }}>
                             {recurrentValue && expensesValue ? `R$ ${

@@ -58,7 +58,7 @@ export default function MyFormUser({myOnSubmit, title, buttonTitle, user, resetF
 
     return (    
         <Box paddingX={8}>
-            <Text alignSelf='center' fontSize='2xl' fontWeight='bold' color='primary.600'>
+            <Text alignSelf='center' fontSize={16} fontWeight='bold' color='primary.600'>
                 {title}
             </Text>
                 

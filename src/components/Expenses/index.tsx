@@ -54,10 +54,10 @@ export default function Expenses ({setIncome, setExpense}: InputProps){
             {openScreen ? 
                 <Box paddingX={14}>
                     <ModalCreateExpense category={category} openModal={openModal} setOpenModal={setOpenModal} loadData={loadData}/>
-                    <Text fontSize={18} color='primary.600' fontWeight='bold' alignSelf='center'>Despesas</Text>
+                    <Text fontSize={16} color='primary.600' fontWeight='bold' alignSelf='center'>Despesas</Text>
                     {categories.children.length > 0 ? 
                         <Tree categories={categories} nivel={0} handleCategory={handleCategory}/>
-                        : <Text marginTop={2}  alignSelf='center'fontWeight='bold' color='secondary.900' fontSize={16}>
+                        : <Text marginTop={2}  alignSelf='center'fontWeight='bold' color='secondary.900' fontSize={14}>
                                        Não há categorias ativas !
                         </Text>} 
                 </Box>

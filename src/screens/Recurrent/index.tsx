@@ -93,9 +93,9 @@ export default function Recurrents({navigation}: InputProps){
                 <>
                     <Box flex={1} backgroundColor='primary.100'>
                         <Header navigation={navigation}/>
-                        <Box marginTop={10}>
+                        <Box marginTop={5}>
                             <Box paddingX={8}>
-                                <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize='2xl'>Despesa Recorrente</Text>                
+                                <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize={16}>Despesa Recorrente</Text>                
                                 <Box>
                                     <Box>
                                         <MyMoneyMask
@@ -152,11 +152,11 @@ export default function Recurrents({navigation}: InputProps){
                                     showsVerticalScrollIndicator={false}
                                     renderItem={({item}) => (
                                         <Box flexDirection='row' alignItems='center' justifyContent='space-between'>
-                                            <Text fontWeight='bold' color='secondary.900' fontSize={16} maxWidth={50}>
+                                            <Text fontWeight='bold' color='secondary.900' fontSize={14} maxWidth={50}>
                                                 {item.categories.name.length > 6 ? 
                                                     item.categories.name.substring(0, 3)+'...': item.categories.name}
                                             </Text>  
-                                            <Text fontWeight='bold' color='secondary.900' fontSize={16}>
+                                            <Text fontWeight='bold' color='secondary.900' fontSize={14}>
                                                 {
                                                     item.value.toFixed(2).toString().replace('.', ',')
                                                 }

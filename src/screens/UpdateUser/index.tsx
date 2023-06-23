@@ -66,7 +66,7 @@ export default function UpdateUser ({navigation}: InputProps) {
             {openScreen ? (
                 <Box flex={1} backgroundColor='primary.100'>
                     <Header navigation={navigation}/>
-                    <Box marginTop={10}>
+                    <Box marginTop={5}>
                         <MyFormUser 
                             user={user}
                             buttonTitle='Atualizar' 

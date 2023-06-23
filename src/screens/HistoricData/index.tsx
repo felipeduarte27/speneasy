@@ -49,14 +49,14 @@ export default function HistoricData ({navigation, route}: InputProps) {
             {openScreen ? 
                 <Box flex={1} backgroundColor='primary.100'> 
                     <Header navigation={navigation}/>
-                    <Box flexDirection='column' alignItems='center' marginTop={10}>
+                    <Box flexDirection='column' alignItems='center' marginTop={5}>
                         <Box>
-                            <Text fontWeight='bold' color='primary.600' fontSize='2xl'>Despesas Totais</Text>
+                            <Text fontWeight='bold' color='primary.600' fontSize={16}>Despesas Totais</Text>
                             <Text 
                                 alignSelf='center'
                                 fontWeight='bold' 
                                 color='primary.300' 
-                                fontSize='2xl'>R$ {totalExpensese.toFixed(2).toString().replace('.', ',')}</Text>
+                                fontSize={16}>R$ {totalExpensese.toFixed(2).toString().replace('.', ',')}</Text>
                         </Box>
                         <Box marginTop={6} width='90%'>
                             
@@ -71,7 +71,7 @@ export default function HistoricData ({navigation, route}: InputProps) {
                         <Box flexDirection='row' justifyContent='space-between' marginTop={8}>
                             <Link onPress={()=>{navigation.navigate('historicSearchForm');}} isUnderlined={false} _text={{
                                 color: 'primary.600',
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: 'bold'
                             }}>
                                 Voltar

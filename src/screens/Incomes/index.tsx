@@ -104,8 +104,8 @@ export default function Incomes ({navigation}: InputProps) {
             {openScreen ? (
                 <Box flex={1} backgroundColor='primary.100'>
                     <Header navigation={navigation}/>
-                    <Box marginTop={10} paddingX={8}>
-                        <Text alignSelf='center' fontSize='2xl' fontWeight='bold' color='primary.600'>
+                    <Box marginTop={5} paddingX={8}>
+                        <Text alignSelf='center' fontSize={16} fontWeight='bold' color='primary.600'>
                             Receita Mensal
                         </Text>                       
                         

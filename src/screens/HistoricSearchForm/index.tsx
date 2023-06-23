@@ -32,9 +32,9 @@ export default function HistoricSearchForm({navigation}: InputProps){
     return(
         <Box flex={1} backgroundColor='primary.100'>
             <Header navigation={navigation}/>
-            <Box marginTop={10}>
+            <Box marginTop={5}>
                 <Box paddingX={8}>
-                    <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize='2xl'>Escolha um Período</Text>                
+                    <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize={16}>Escolha um Período</Text>                
                     <Box>
                         <Box>
                             <MyYearMask
