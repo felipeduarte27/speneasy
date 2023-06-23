@@ -18,7 +18,9 @@ export default function MySelectMonth ({ control, name, errors }: InputProps) {
                 control={control}
                 render={({field: {onChange, value}}) => (
                     <Select 
-                        borderColor={errors[`${name}`] ? 'primary.300' : 'secondary.900'}                                        
+                        fontSize={14}
+                        height={10}
+                        borderColor={errors[`${name}`] ? 'primary.300' : 'secondary.200'}                                        
                         selectedValue={value}                                 
                         accessibilityLabel="Escolha uma mês" 
                         placeholder="Escolha um mês" 

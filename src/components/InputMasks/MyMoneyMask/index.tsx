@@ -23,7 +23,8 @@ export default function MyMoneyMask ({control, name, errors, mask }: InputProps)
             borderRadius: 4,
             padding: 10,
             backgroundColor: theme.colors.primary[100],
-            marginTop: 12
+            marginTop: 12,
+            fontSize: 14
         },
         labelError: {
             alignSelf: 'flex-start',

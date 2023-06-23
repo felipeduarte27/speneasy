@@ -21,6 +21,8 @@ export default function MyInputSelect({ control, name, errors, data, placeholder
                     control={control}
                     render={({field: {onChange, value}}) => (
                         <Select 
+                            height={10}
+                            fontSize={14}
                             borderColor={errors[`${name}`] ? 'primary.300' : 'secondary.200'}                                        
                             selectedValue={value}                                 
                             accessibilityLabel={placeholder}

@@ -23,7 +23,7 @@ export default function MyYearMask ({control, name, errors }: InputProps) {
             padding: 10,
             backgroundColor: theme.colors.primary[100],
             marginTop: 12,
-            fontSize: 16
+            fontSize: 14
         }
     });
 
@@ -40,7 +40,7 @@ export default function MyYearMask ({control, name, errors }: InputProps) {
                         options={{
                             mask: '9999'
                         }}  
-                        style={[styles.input, { borderWidth: 1 ,borderColor: !errors.ano ? theme.colors.secondary[900] : theme.colors.primary[300]}]}                              
+                        style={[styles.input, { borderWidth: 0.3 ,borderColor: !errors.ano ? theme.colors.secondary[900] : theme.colors.primary[300]}]}                              
                         placeholder='Ano'                                                            
                     />
                 )}

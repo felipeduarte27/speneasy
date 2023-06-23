@@ -43,6 +43,8 @@ export default function MyInput({name, errors, control, type, inputLeftElement, 
                 name={name}
                 render={({field: {onChange, value}})=>(
                     <Input 
+                        height={10}
+                        fontSize={15}
                         minW='100%'
                         backgroundColor='primary.100'                       
                         value={value}

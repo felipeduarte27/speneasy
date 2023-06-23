@@ -23,7 +23,7 @@ export default function MyMonthYearMask ({control, name, errors }: InputProps) {
             padding: 10,
             backgroundColor: theme.colors.primary[100],
             marginTop: 12,
-            fontSize: 16
+            fontSize: 14
         },
         labelError: {
             alignSelf: 'flex-start',
