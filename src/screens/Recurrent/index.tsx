@@ -91,10 +91,10 @@ export default function Recurrents({route, navigation}: InputProps){
 
     return(
         <>
-            {openScreen ? 
-                <>
-                    <Box flex={1} backgroundColor='primary.100'>
-                        <Header navigation={navigation} maxHeight={14.5} typeNavigation={typeNavigation}/>
+            <Box flex={1} backgroundColor='primary.100'>
+                <Header navigation={navigation} maxHeight={14.5} typeNavigation={typeNavigation}/>
+                {openScreen ? 
+                    <>
                         <Box marginTop={5}>
                             <Box paddingX={8}>
                                 <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize={16}>Despesa Recorrente</Text>                
@@ -185,10 +185,9 @@ export default function Recurrents({route, navigation}: InputProps){
                                        Não há recorrências cadastradas !
                                 </Text>}                            
                         </Box>
-                    </Box>
-                </>
-                : null
-            }
+                    </>
+                    : null }
+            </Box>                
         </>
     );
 }

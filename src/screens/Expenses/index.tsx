@@ -33,58 +33,54 @@ export default function Expenses({route, navigation}: InputProps){
 
     return(
         <>
-            {openScreen ? 
-                <>
-                    <Box flex={1} backgroundColor='primary.100'>
-                        <Header navigation={navigation} maxHeight={14.5} typeNavigation={typeNavigation}/>
-                        
-                        <Box marginTop={5}> 
-                            <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize={16} >
+            <Box flex={1} backgroundColor='primary.100'>
+                <Header navigation={navigation} maxHeight={14.5} typeNavigation={typeNavigation}/>
+                {openScreen ?      
+                    <Box marginTop={5}> 
+                        <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize={16} >
                               Despesas de {getMonthName(new Date().getMonth()+1)}
-                            </Text>
-                            {expenses.length > 0 ? 
-                                <FlatList
-                                    marginTop={5}
-                                    marginLeft={4}
-                                    marginRight={4}
-                                    data={expenses}
-                                    keyExtractor={(item) => String(item.id)}
-                                    showsVerticalScrollIndicator={false}
-                                    renderItem={({item}) => (
-                                        <Box flexDirection='row' alignItems='center' justifyContent='space-between'>
-                                            <Text fontWeight='bold' color='secondary.900' fontSize={14} maxWidth={50}>
-                                                {item.value.toFixed(2).toString().replace('.', ',')}
-                                            </Text>  
-                                            <Text fontWeight='bold' color='secondary.900' fontSize={14}>
-                                                {
-                                                    item.categories.name
+                        </Text>
+                        {expenses.length > 0 ? 
+                            <FlatList
+                                marginTop={5}
+                                marginLeft={4}
+                                marginRight={4}
+                                data={expenses}
+                                keyExtractor={(item) => String(item.id)}
+                                showsVerticalScrollIndicator={false}
+                                renderItem={({item}) => (
+                                    <Box flexDirection='row' alignItems='center' justifyContent='space-between'>
+                                        <Text fontWeight='bold' color='secondary.900' fontSize={14} maxWidth={50}>
+                                            {item.value.toFixed(2).toString().replace('.', ',')}
+                                        </Text>  
+                                        <Text fontWeight='bold' color='secondary.900' fontSize={14}>
+                                            {
+                                                item.categories.name
+                                            }
+                                        </Text>  
+                                        <IconButton
+                                            onPress={async ()=>{
+                                                try{
+                                                    await api.delete(`expenses/delete/${item.id}`);
+                                                    loadData();                                               
+                                                }catch(error){
+                                                    console.log(error);
                                                 }
-                                            </Text>  
-                                            <IconButton
-                                                onPress={async ()=>{
-                                                    try{
-                                                        await api.delete(`expenses/delete/${item.id}`);
-                                                        loadData();                                               
-                                                    }catch(error){
-                                                        console.log(error);
-                                                    }
-                                                }}
-                                                _pressed={{backgroundColor: 'primary.100'}}
-                                                icon={
-                                                    <Icon color='primary.600' as={Ionicons} name='trash'/>
-                                                }
-                                            />                                        
-                                        </Box>
-                                    )}                
-                                />
-                                : <Text marginTop={2}  alignSelf='center'fontWeight='bold' color='secondary.900' fontSize={16}>
+                                            }}
+                                            _pressed={{backgroundColor: 'primary.100'}}
+                                            icon={
+                                                <Icon color='primary.600' as={Ionicons} name='trash'/>
+                                            }
+                                        />                                        
+                                    </Box>
+                                )}                
+                            />
+                            : <Text marginTop={2}  alignSelf='center'fontWeight='bold' color='secondary.900' fontSize={16}>
                                        Não há recorrências cadastradas !
-                                </Text>}                            
-                        </Box>
+                            </Text>}                            
                     </Box>
-                </>
-                : null
-            }
+                    : null }
+            </Box>
         </>
     );
 }

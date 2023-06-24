@@ -93,95 +93,98 @@ export default function Categories ({route, navigation}: InputProps) {
 
     return (
         <>
-            {openScreen ? 
-                (<Box flex={1} backgroundColor='primary.100'>
-                    <Header navigation={navigation} maxHeight={14.5} typeNavigation={typeNavigation}/>
-                    <Box paddingX={8} marginTop={5}>
-                        <Text alignSelf='center' fontSize={16} fontWeight='bold' color='primary.600'>
-                            {category.name ? 'Atualizar' : 'Cadastrar'} Categoria
-                        </Text>                        
-                        <Box>
-                            <MyInput
-                                name='nome' 
-                                placeholder='Nome'               
-                                control={control} 
-                                errors={errors} 
-                                inputLeftElement=''                                             
-                                type='text'
-                                marginTop='4'
-                            />                            
+           
+            <Box flex={1} backgroundColor='primary.100'>
+                <Header navigation={navigation} maxHeight={14.5} typeNavigation={typeNavigation}/>                
+                {openScreen ? (
+                    <>
+                        <Box paddingX={8} marginTop={5}>
+                            <Text alignSelf='center' fontSize={16} fontWeight='bold' color='primary.600'>
+                                {category.name ? 'Atualizar' : 'Cadastrar'} Categoria
+                            </Text>                        
+                            <Box>
+                                <MyInput
+                                    name='nome' 
+                                    placeholder='Nome'               
+                                    control={control} 
+                                    errors={errors} 
+                                    inputLeftElement=''                                             
+                                    type='text'
+                                    marginTop='4'
+                                />                            
+                            </Box>
+                            <Box marginTop={2}>
+                                <MyInputSelect 
+                                    control={control}
+                                    name='categorias'
+                                    errors={errors}
+                                    data={categories}
+                                    placeholder='Escolha uma Categoria'
+                                />                           
+                            </Box>
+                            <Box>
+                                <MyButtonSubmit
+                                    text={category.name ? 'Atualizar' : 'Cadastrar'}
+                                    loadingText={category.name ? 'Atualizando' : 'Cadastrando'}
+                                    isLoading={isLoading}
+                                    handleSubmite={handleSubmit}
+                                    onSubmit={onSubmit}
+                                    marginTop={4}
+                                />  
+                            </Box>
                         </Box>
-                        <Box marginTop={2}>
-                            <MyInputSelect 
-                                control={control}
-                                name='categorias'
-                                errors={errors}
-                                data={categories}
-                                placeholder='Escolha uma Categoria'
-                            />                           
-                        </Box>
-                        <Box>
-                            <MyButtonSubmit
-                                text={category.name ? 'Atualizar' : 'Cadastrar'}
-                                loadingText={category.name ? 'Atualizando' : 'Cadastrando'}
-                                isLoading={isLoading}
-                                handleSubmite={handleSubmit}
-                                onSubmit={onSubmit}
-                                marginTop={4}
-                            />  
-                        </Box>
-                    </Box>
-                    <Box borderTopWidth={1} borderColor='secondary.900' margin={4}> 
-                        <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize={16} marginTop={4}>Lista de Categorias</Text>
-                        {categories.length > 0 ? 
-                            <FlatList
-                                marginLeft={4}
-                                marginRight={4}
-                                data={categories}
-                                keyExtractor={(item) => String(item.id)}
-                                showsVerticalScrollIndicator={false}
-                                renderItem={({item}) => (
-                                    <Box flexDirection='row' alignItems='center' justifyContent='space-between'>
-                                        <Text fontWeight='bold' color='secondary.900' fontSize={14}>{item.name}</Text> 
-                                        <Box flexDirection='row' alignContent='center' alignItems='center'>
-                                            <IconButton                                                      
-                                                onPress={()=>{                                                                                               
-                                                    setValue('nome', item.name); 
-                                                    setValue('categorias', item.categoriesId ? item.categoriesId : '0'); 
-                                                    setCategory({
-                                                        id: item.id, 
-                                                        name: item.name, 
-                                                        categoriesId: item.categoriesId});
-                                                }} 
-                                                _pressed={{backgroundColor: 'primary.100'}}                                                                                                                                        
-                                                icon={
-                                                    <Icon color='primary.600' as={Ionicons} name='create-sharp'/>
-                                                }/>  
-                                            <IconButton
-                                                onPress={async ()=>{
-                                                    try{
-                                                        await api.delete(`categories/delete/${item.id}`);
-                                                        const apiReturn = await api.get(`/categories/findAllActives/${userContext.id}`); 
-                                                        setCategories(apiReturn.data);                                                
-                                                    }catch(error){
-                                                        console.log(error);
+                        <Box borderTopWidth={1} borderColor='secondary.900' margin={4}> 
+                            <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize={16} marginTop={4}>Lista de Categorias</Text>
+                            {categories.length > 0 ? 
+                                <FlatList
+                                    marginLeft={4}
+                                    marginRight={4}
+                                    data={categories}
+                                    keyExtractor={(item) => String(item.id)}
+                                    showsVerticalScrollIndicator={false}
+                                    renderItem={({item}) => (
+                                        <Box flexDirection='row' alignItems='center' justifyContent='space-between'>
+                                            <Text fontWeight='bold' color='secondary.900' fontSize={14}>{item.name}</Text> 
+                                            <Box flexDirection='row' alignContent='center' alignItems='center'>
+                                                <IconButton                                                      
+                                                    onPress={()=>{                                                                                               
+                                                        setValue('nome', item.name); 
+                                                        setValue('categorias', item.categoriesId ? item.categoriesId : '0'); 
+                                                        setCategory({
+                                                            id: item.id, 
+                                                            name: item.name, 
+                                                            categoriesId: item.categoriesId});
+                                                    }} 
+                                                    _pressed={{backgroundColor: 'primary.100'}}                                                                                                                                        
+                                                    icon={
+                                                        <Icon color='primary.600' as={Ionicons} name='create-sharp'/>
+                                                    }/>  
+                                                <IconButton
+                                                    onPress={async ()=>{
+                                                        try{
+                                                            await api.delete(`categories/delete/${item.id}`);
+                                                            const apiReturn = await api.get(`/categories/findAllActives/${userContext.id}`); 
+                                                            setCategories(apiReturn.data);                                                
+                                                        }catch(error){
+                                                            console.log(error);
+                                                        }
+                                                    }}
+                                                    _pressed={{backgroundColor: 'primary.100'}}
+                                                    icon={
+                                                        <Icon color='primary.600' as={Ionicons} name='trash'/>
                                                     }
-                                                }}
-                                                _pressed={{backgroundColor: 'primary.100'}}
-                                                icon={
-                                                    <Icon color='primary.600' as={Ionicons} name='trash'/>
-                                                }
-                                            />                         
+                                                />                         
+                                            </Box>
                                         </Box>
-                                    </Box>
-                                )}                
-                            />
-                            : <Text marginTop={2}  alignSelf='center'fontWeight='bold' color='secondary.900' fontSize={16}>
+                                    )}                
+                                />
+                                : <Text marginTop={2}  alignSelf='center'fontWeight='bold' color='secondary.900' fontSize={16}>
                                        Não há categorias cadastradas !
-                            </Text>} 
-                    </Box>
-                </Box>) : null
-            }
+                                </Text>} 
+                        </Box>
+                    </>
+                ) : null}
+            </Box>
         </>
     );
 }
