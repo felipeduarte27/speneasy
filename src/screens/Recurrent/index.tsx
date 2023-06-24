@@ -17,6 +17,7 @@ import Loading from '../Loading';
 import MyTitleScreen from '../../components/MyTitleScreen';
 import MyTitleEmptyList from '../../components/MyTitleEmptyList';
 import { formatCurrencyLabel } from '../../helpers';
+import { formatLongName } from '../../helpers';
 
 const schema = yup.object({
     value: yup.string().required('Campo obrigatório !'),
@@ -160,8 +161,8 @@ export default function Recurrents({navigation}: InputProps){
                                     renderItem={({item}) => (
                                         <Box flexDirection='row' alignItems='center' justifyContent='space-between'>
                                             <Text fontWeight='bold' color='secondary.900' fontSize={14} maxWidth={50}>
-                                                {item.categories.name.length > 6 ? 
-                                                    item.categories.name.substring(0, 3)+'...': item.categories.name}
+                                                {formatLongName(item.categories.name)}
+                                                    
                                             </Text>  
                                             <Text fontWeight='bold' color='secondary.900' fontSize={14}>
                                                 {
