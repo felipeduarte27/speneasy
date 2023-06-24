@@ -23,9 +23,10 @@ const schema = yup.object({
 
 interface InputProps {
   navigation: any,
+  route: any
 }
 
-export default function Recurrents({navigation}: InputProps){
+export default function Recurrents({route, navigation}: InputProps){
     const [categories, setCategories] = useState([]);
     const [recurrents, setRecurrents] = useState([]);
     const [openScreen, setOpenScreen] = useState(false);
@@ -35,6 +36,7 @@ export default function Recurrents({navigation}: InputProps){
     const {control, handleSubmit, reset, setValue, formState : {errors}} = useForm({
         resolver: yupResolver(schema)
     });
+    const typeNavigation = route.params.typeNavigation;
 
     const loadData = async () => {
       
@@ -92,7 +94,7 @@ export default function Recurrents({navigation}: InputProps){
             {openScreen ? 
                 <>
                     <Box flex={1} backgroundColor='primary.100'>
-                        <Header navigation={navigation}/>
+                        <Header navigation={navigation} maxHeight={14.5} typeNavigation={typeNavigation}/>
                         <Box marginTop={5}>
                             <Box paddingX={8}>
                                 <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize={16}>Despesa Recorrente</Text>                

@@ -8,7 +8,8 @@ import { Context } from '../../context/UserContext';
 import api from '../../api/axios';
 
 interface InputProps {
-  navigation: any
+  navigation: any,
+  route: any
 }
 
 interface User {
@@ -16,7 +17,7 @@ interface User {
   email: string,
 }
 
-export default function UpdateUser ({navigation}: InputProps) {
+export default function UpdateUser ({route, navigation}: InputProps) {
     const [user, setUser] = useState<User>({
         nome: '',
         email: '',
@@ -24,6 +25,7 @@ export default function UpdateUser ({navigation}: InputProps) {
     const [openScreen, setOpenScreen] = useState(false);
     const toast = useToast();
     const { user: userContext } = useContext(Context);
+    const typeNavigation = route.params.typeNavigation;
 
     const myOnSubmit = async (data) => { 
         try{                  
@@ -65,7 +67,7 @@ export default function UpdateUser ({navigation}: InputProps) {
         <>
             {openScreen ? (
                 <Box flex={1} backgroundColor='primary.100'>
-                    <Header navigation={navigation}/>
+                    <Header navigation={navigation} maxHeight={14.5} typeNavigation={typeNavigation}/>
                     <Box marginTop={5}>
                         <MyFormUser 
                             user={user}

@@ -7,12 +7,13 @@ import { getMonthName } from '../../helpers';
 
 interface InputProps {
   navigation: any,
+  route: any
 }
 
-export default function Expenses({navigation}: InputProps){
+export default function Expenses({route, navigation}: InputProps){
     const [expenses, setExpenses] = useState([]);
     const [openScreen, setOpenScreen] = useState(false);
-
+    const typeNavigation = route.params.typeNavigation;
     const loadData = async () => {
       
         try{
@@ -35,11 +36,11 @@ export default function Expenses({navigation}: InputProps){
             {openScreen ? 
                 <>
                     <Box flex={1} backgroundColor='primary.100'>
-                        <Header navigation={navigation}/>
+                        <Header navigation={navigation} maxHeight={14.5} typeNavigation={typeNavigation}/>
                         
                         <Box marginTop={5}> 
                             <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize={16} >
-                              Despesas de Junho {getMonthName(new Date().getMonth)}
+                              Despesas de {getMonthName(new Date().getMonth()+1)}
                             </Text>
                             {expenses.length > 0 ? 
                                 <FlatList

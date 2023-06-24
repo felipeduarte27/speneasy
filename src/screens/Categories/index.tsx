@@ -25,7 +25,8 @@ const schema = yup.object({
 }).required();
 
 interface InputProps {
-  navigation: any
+  navigation: any,
+  route: any
 }
 
 interface Category {
@@ -34,13 +35,13 @@ interface Category {
     categoriesId: string
 }
 
-export default function Categories ({navigation}: InputProps) {
+export default function Categories ({route, navigation}: InputProps) {
     const [isLoading, setIsLoading] = useState(false);
     const [category, setCategory] = useState<Category>(defaultValues);
     const [categories, setCategories] = useState<Category[]>([]);
     const [openScreen, setOpenScreen] = useState(false);
     const { user: userContext } = useContext(Context);
-
+    const typeNavigation = route.params.typeNavigation;
     const {control, handleSubmit, reset, setValue, formState: {errors}} = useForm({
         resolver: yupResolver(schema)
     });
@@ -94,7 +95,7 @@ export default function Categories ({navigation}: InputProps) {
         <>
             {openScreen ? 
                 (<Box flex={1} backgroundColor='primary.100'>
-                    <Header navigation={navigation}/>
+                    <Header navigation={navigation} maxHeight={14.5} typeNavigation={typeNavigation}/>
                     <Box paddingX={8} marginTop={5}>
                         <Text alignSelf='center' fontSize={16} fontWeight='bold' color='primary.600'>
                             {category.name ? 'Atualizar' : 'Cadastrar'} Categoria

@@ -36,16 +36,45 @@ export const HistoricStack = function () {
     );};
 
 export const TabNavigation = function(){
+    const theme = useTheme();
     return (
         <Tab.Navigator
-            screenOptions={{
-                headerShown: false,
-            }}
-        >
-            <Tab.Screen name="home" component={DashBoard} />
-            <Tab.Screen name="categories" component={Categories} />
-            <Tab.Screen name="expenses" component={Expenses} />
-            <Tab.Screen name="recurrents" component={Recurrents} />
+            screenOptions={( { route }) => ({
+                headerShown: false,  
+                tabBarActiveTintColor: 'tomato',
+                tabBarInactiveTintColor: 'gray',              
+                tabBarIcon: ({ focused, color, size }) => {
+                    let iconName;
+        
+                    if (route.name === 'home') {
+                        iconName = 'home';
+                    } else if (route.name === 'categories') {
+                        iconName = 'list';
+                    } else if(route.name === 'expenses'){
+                        iconName = 'document-text-outline';
+                    } else {
+                        iconName = 'reload-circle-sharp';
+                    }                   
+                    return <Ionicons name={iconName} size={size} color={color} />;
+                },
+                tabBarStyle: {
+                    padding: 2,
+                    backgroundColor: theme.colors.primary[100],
+                    borderTopWidth: 0,
+                }
+            })}>
+            <Tab.Screen initialParams={{typeNavigation: 'tab'}} name="home" component={DashBoard} options={{
+                title: 'Inicio'
+            }}/>
+            <Tab.Screen initialParams={{typeNavigation: 'tab'}} name="categories" component={Categories} options={{
+                title: 'Categorias'
+            }}/>
+            <Tab.Screen initialParams={{typeNavigation: 'tab'}} name="expenses" component={Expenses} options={{
+                title: 'Despesas'
+            }}/>
+            <Tab.Screen initialParams={{typeNavigation: 'tab'}} name="recurrents" component={Recurrents} options={{
+                title: 'Recorrência'
+            }}/>
         </Tab.Navigator>
     );};
 
@@ -65,34 +94,34 @@ export const Authenticated = function(){
                     marginLeft: -15,
                     fontSize: 16
                 }}}>
-            <Drawer.Screen name="dashBoard" component={DashBoard} 
+            <Drawer.Screen initialParams={{typeNavigation: 'drawer'}} name="dashBoard" component={TabNavigation} 
                 options={{
                     title: 'Página Inicial',                    
                     drawerIcon: ({color}) => (<Ionicons name='home' size={16} color={color}/>)
                 }}/> 
-            <Drawer.Screen name="updateUser" component={UpdateUser} options={{
+            <Drawer.Screen initialParams={{typeNavigation: 'drawer'}} name="updateUser" component={UpdateUser} options={{
                 title: 'Dados Pessoais',                    
                 drawerIcon: ({color}) => (<Ionicons name='person' size={16} color={color}/>)
             }}/>  
-            <Drawer.Screen name="updatePassword" component={UpdatePassword} options={{
+            <Drawer.Screen initialParams={{typeNavigation: 'drawer'}} name="updatePassword" component={UpdatePassword} options={{
                 title: 'Senha',                    
                 drawerIcon: ({color}) => (<Ionicons name='key-sharp' size={16} color={color}/>)
             }}/>  
-            <Drawer.Screen name="categories" component={Categories} options={{
+            <Drawer.Screen initialParams={{typeNavigation: 'drawer'}} name="categories" component={Categories} options={{
                 title: 'Categorias',                    
                 drawerIcon: ({color}) => (<Ionicons name='list' size={16} color={color}/>)
             }}/>
-            <Drawer.Screen name="incomes" component={Incomes} options={{
+            <Drawer.Screen initialParams={{typeNavigation: 'drawer'}} name="incomes" component={Incomes} options={{
                 title: 'Receitas',                    
                 drawerIcon: ({color}) => (<Ionicons name='add-circle-sharp' size={16} color={color}/>)
             }}/>
-            <Drawer.Screen name="recurrents" component={Recurrents} options={{
+            <Drawer.Screen initialParams={{typeNavigation: 'drawer'}} name="recurrents" component={Recurrents} options={{
                 title: 'Recorrência',                    
                 drawerIcon: ({color}) => (<Ionicons name='reload-circle-sharp' size={16} color={color}/>)
             }}/>
-            <Drawer.Screen name="expenses" component={Expenses} options={{
+            <Drawer.Screen initialParams={{typeNavigation: 'drawer'}} name="expenses" component={Expenses} options={{
                 title: 'Despesas',                    
-                drawerIcon: ({color}) => (<Ionicons name='close-circle-sharp' size={16} color={color}/>)
+                drawerIcon: ({color}) => (<Ionicons name='document-text-outline' size={16} color={color}/>)
             }}/>
             <Drawer.Screen name="historic" component={HistoricStack} options={{
                 title: 'Histórico',                    

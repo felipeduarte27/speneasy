@@ -6,16 +6,19 @@ import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 
 interface InputProps {
-    navigation: any
+    navigation: any,
+    maxHeight: number,
+    typeNavigation: string
 }
 
-export default function Header({navigation}: InputProps) {    
+export default function Header({navigation, maxHeight, typeNavigation}: InputProps) {    
   
     const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-
+    const navigationHome = typeNavigation === 'tab' ? 'home' : 'dashBoard';
+    
     return (
         <Box 
-            height='12%' 
+            height={`${maxHeight}%`} 
             bgColor='primary.600' 
             flexDirection='row' 
             justifyContent='space-between'
@@ -39,9 +42,9 @@ export default function Header({navigation}: InputProps) {
                     </Text>
                 </Box>
             </Box>
-            <Box marginTop={12}> 
+            <Box marginTop={12} paddingTop={3.5}> 
                 <IconButton 
-                    onPress={()=>navigation.navigate('dashBoard')}                                                                          
+                    onPress={()=>navigation.navigate(`${navigationHome}`)}                                                                          
                     _pressed={{backgroundColor: 'primary.600'}}                                
                     icon={
                         <Icon color='primary.100' as={Ionicons} name='home'/>

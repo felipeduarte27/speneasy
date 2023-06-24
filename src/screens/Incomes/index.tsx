@@ -17,7 +17,8 @@ const schema = yup.object({
 }).required();
 
 interface InputProps {
-  navigation: any
+  navigation: any,
+  route: any
 }
 
 interface Income {
@@ -27,7 +28,7 @@ interface Income {
   userId: number
 }
 
-export default function Incomes ({navigation}: InputProps) {
+export default function Incomes ({route, navigation}: InputProps) {
     const [income, setIncome] = useState<Income>({
         id: 0, 
         active: true, 
@@ -41,6 +42,7 @@ export default function Incomes ({navigation}: InputProps) {
     const {control, handleSubmit, reset, formState: { errors }} = useForm({        
         resolver: yupResolver(schema)
     });
+    const typeNavigation = route.params.typeNavigation;
 
     const loadData = async () => {
         try{
@@ -103,7 +105,7 @@ export default function Incomes ({navigation}: InputProps) {
         <>
             {openScreen ? (
                 <Box flex={1} backgroundColor='primary.100'>
-                    <Header navigation={navigation}/>
+                    <Header navigation={navigation} maxHeight={14.5} typeNavigation={typeNavigation}/>
                     <Box marginTop={5} paddingX={8}>
                         <Text alignSelf='center' fontSize={16} fontWeight='bold' color='primary.600'>
                             Receita Mensal
