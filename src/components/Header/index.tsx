@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { Box, Text, IconButton } from 'native-base';
-import React from 'react';
+import React, {useContext} from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
+import { Context } from '../../context/UserContext';
 
 interface InputProps {
     navigation: any,
 }
 
 export default function Header({navigation}: InputProps) {    
-  
+    const { user: userContext } = useContext(Context);
     const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
     
     return (
@@ -40,7 +41,7 @@ export default function Header({navigation}: InputProps) {
             </Box>
             <Box marginTop={12} paddingTop={3.5}> 
                 <Text fontSize='lg' fontWeight='bold' color='primary.100'>
-                    Felipe
+                    {userContext.nome.split(' ')[0]}
                 </Text>         
             </Box>
         </Box>
