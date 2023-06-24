@@ -40,7 +40,7 @@ export default function MyYearMask ({control, name, errors }: InputProps) {
                         options={{
                             mask: '9999'
                         }}  
-                        style={[styles.input, { borderWidth: 0.3 ,borderColor: !errors.ano ? theme.colors.secondary[900] : theme.colors.primary[300]}]}                              
+                        style={[styles.input, { borderWidth: !errors.ano ? 0.3 : 1 ,borderColor: !errors.ano ? theme.colors.secondary[900] : theme.colors.primary[300]}]}                              
                         placeholder='Ano'                                                            
                     />
                 )}
