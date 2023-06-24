@@ -48,7 +48,7 @@ export default function HistoricData ({navigation, route}: InputProps) {
         <>
             {openScreen ? 
                 <Box flex={1} backgroundColor='primary.100'> 
-                    <Header navigation={navigation} maxHeight={14.5} typeNavigation='drawer'/>
+                    <Header navigation={navigation}/>
                     <Box flexDirection='column' alignItems='center' marginTop={5}>
                         <Box>
                             <Text fontWeight='bold' color='primary.600' fontSize={16}>Despesas Totais</Text>

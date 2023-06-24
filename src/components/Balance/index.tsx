@@ -10,10 +10,14 @@ export default function Balance ({income, expense}: InputProps){
     const theme = useTheme();
     return (
         <Box 
+            borderWidth={1}
+            shadow={2}
+            borderColor='secondary.300'
             borderRadius={4} 
             marginLeft={14} 
             marginRight={14} 
-            marginTop={-4} 
+            marginTop={3} 
+            marginBottom={3}          
             backgroundColor='primary.100'
             flexDirection='row'
             justifyContent='space-between'

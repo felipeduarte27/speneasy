@@ -6,17 +6,15 @@ import Expenses from '../../components/Expenses';
 
 interface InputProps {
     navigation: any,
-    route: any
 }
 
-export default function DashBoard({route, navigation}: InputProps){
+export default function DashBoard({navigation}: InputProps){
     const [income, setIncome] = useState(0);
     const [expense, setExpense] = useState(0);
-    const typeNavigation = route.params.typeNavigation;
 
     return (
         <Box flex={1} backgroundColor='primary.100'>
-            <Header navigation={navigation} maxHeight={16} typeNavigation={typeNavigation}/>
+            <Header navigation={navigation}/>
             <Balance income={income} expense={expense}/>
             <Expenses setIncome={setIncome} setExpense={setExpense}/>
         </Box>

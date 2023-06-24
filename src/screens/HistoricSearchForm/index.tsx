@@ -31,7 +31,7 @@ export default function HistoricSearchForm({navigation}: InputProps){
 
     return(
         <Box flex={1} backgroundColor='primary.100'>
-            <Header navigation={navigation} maxHeight={14.5} typeNavigation='drawer'/>
+            <Header navigation={navigation}/>
             <Box marginTop={5}>
                 <Box paddingX={8}>
                     <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize={16}>Escolha um Período</Text>                

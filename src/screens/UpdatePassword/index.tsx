@@ -15,15 +15,13 @@ const schema = yup.object({
 }).required();
 
 interface InputProps {
-  navigation: any,
-  route: any
+  navigation: any
 }
 
-export default function UpdatePassword({route, navigation}: InputProps) {
+export default function UpdatePassword({navigation}: InputProps) {
     const [isLoading, setIsLoading] = useState(false);
     const { user: userContext } = useContext(Context);
     const toast = useToast();
-    const typeNavigation = route.params.typeNavigation;
 
     const {control, handleSubmit, reset, formState: { errors }} = useForm({
         defaultValues: {
@@ -53,7 +51,7 @@ export default function UpdatePassword({route, navigation}: InputProps) {
     };
     return (        
         <Box flex={1} backgroundColor='primary.100'>
-            <Header navigation={navigation} maxHeight={14.5} typeNavigation={typeNavigation}/>
+            <Header navigation={navigation}/>
             <Box paddingX={8} marginTop={5}>
                 <Text alignSelf='center' fontSize={16} fontWeight='bold' color='primary.600'>Atualizar Senha</Text>
                 <MyInput

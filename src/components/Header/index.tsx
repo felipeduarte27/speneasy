@@ -1,24 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { Box, Text, Icon, IconButton } from 'native-base';
+import { Box, Text, IconButton } from 'native-base';
 import React from 'react';
-import { Ionicons } from '@expo/vector-icons';
 import { MaterialIcons } from '@expo/vector-icons';
 
 interface InputProps {
     navigation: any,
-    maxHeight: number,
-    typeNavigation: string
 }
 
-export default function Header({navigation, maxHeight, typeNavigation}: InputProps) {    
+export default function Header({navigation}: InputProps) {    
   
     const meses = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-    const navigationHome = typeNavigation === 'tab' ? 'home' : 'dashBoard';
     
     return (
         <Box 
-            height={`${maxHeight}%`} 
+            height={`${14}%`} 
             bgColor='primary.600' 
             flexDirection='row' 
             justifyContent='space-between'
@@ -43,12 +39,9 @@ export default function Header({navigation, maxHeight, typeNavigation}: InputPro
                 </Box>
             </Box>
             <Box marginTop={12} paddingTop={3.5}> 
-                <IconButton 
-                    onPress={()=>navigation.navigate(`${navigationHome}`)}                                                                          
-                    _pressed={{backgroundColor: 'primary.600'}}                                
-                    icon={
-                        <Icon color='primary.100' as={Ionicons} name='home'/>
-                    }/>            
+                <Text fontSize='lg' fontWeight='bold' color='primary.100'>
+                    Felipe
+                </Text>         
             </Box>
         </Box>
     );

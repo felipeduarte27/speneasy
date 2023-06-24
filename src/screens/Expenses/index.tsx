@@ -6,14 +6,13 @@ import { Ionicons } from '@expo/vector-icons';
 import { getMonthName } from '../../helpers';
 
 interface InputProps {
-  navigation: any,
-  route: any
+  navigation: any
 }
 
-export default function Expenses({route, navigation}: InputProps){
+export default function Expenses({navigation}: InputProps){
     const [expenses, setExpenses] = useState([]);
     const [openScreen, setOpenScreen] = useState(false);
-    const typeNavigation = route.params.typeNavigation;
+
     const loadData = async () => {
       
         try{
@@ -34,7 +33,7 @@ export default function Expenses({route, navigation}: InputProps){
     return(
         <>
             <Box flex={1} backgroundColor='primary.100'>
-                <Header navigation={navigation} maxHeight={14.5} typeNavigation={typeNavigation}/>
+                <Header navigation={navigation}/>
                 {openScreen ?      
                     <Box marginTop={5}> 
                         <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize={16} >
