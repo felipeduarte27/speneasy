@@ -3,6 +3,7 @@
 import { Box, Text, Icon, IconButton } from 'native-base';
 import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
+import { MaterialIcons } from '@expo/vector-icons';
 
 interface InputProps {
     navigation: any
@@ -19,11 +20,24 @@ export default function Header({navigation}: InputProps) {
             flexDirection='row' 
             justifyContent='space-between'
             paddingX={8}
-        >
-            <Box marginTop={12}>
-                <Text fontSize='lg' fontWeight='bold' color='primary.100' mt={1}>
-                    {meses[Number(new Date().getMonth())]}
-                </Text>
+        >  
+            <Box 
+                flexDirection='row' 
+                justifyContent='center' 
+                alignItems='center' 
+                marginTop={10}>
+                <Box marginRight={4}>
+                    <IconButton size={15} onPress={()=> navigation.openDrawer()} variant="solid" _icon={{
+                        as: MaterialIcons,
+                        name: 'menu',
+                        size: 6,                        
+                    }} />
+                </Box>
+                <Box>
+                    <Text fontSize='lg' fontWeight='bold' color='primary.100'>
+                        {meses[Number(new Date().getMonth())]}
+                    </Text>
+                </Box>
             </Box>
             <Box marginTop={12}> 
                 <IconButton 

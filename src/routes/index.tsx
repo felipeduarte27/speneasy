@@ -19,11 +19,13 @@ import UpdatePassword from '../screens/UpdatePassword';
 import Incomes from '../screens/Incomes';
 import Recurrents from '../screens/Recurrent';
 import Expenses from '../screens/Expenses';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import { useTheme } from 'native-base';
 
 const Stack = createNativeStackNavigator();
 const Drawer = createDrawerNavigator();
+const Tab = createBottomTabNavigator();
 
 export const HistoricStack = function () {
     return (
@@ -31,6 +33,20 @@ export const HistoricStack = function () {
             <Stack.Screen name='historicSearchForm' component={HistoricSearchForm}/>   
             <Stack.Screen name='historicData' component={HistoricData}/>             
         </Stack.Navigator>
+    );};
+
+export const TabNavigation = function(){
+    return (
+        <Tab.Navigator
+            screenOptions={{
+                headerShown: false,
+            }}
+        >
+            <Tab.Screen name="home" component={DashBoard} />
+            <Tab.Screen name="categories" component={Categories} />
+            <Tab.Screen name="expenses" component={Expenses} />
+            <Tab.Screen name="recurrents" component={Recurrents} />
+        </Tab.Navigator>
     );};
 
 export const Authenticated = function(){
@@ -87,8 +103,7 @@ export const Authenticated = function(){
                 options={{title: 'Sair',
                     drawerIcon: (({color})=> (<Ionicons name='exit' size={16} color={color}/>))}}
                 component={Exit}                
-            />
-                        
+            />          
         </Drawer.Navigator> 
     );
 };
