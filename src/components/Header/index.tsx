@@ -1,4 +1,4 @@
-import { Box, Text, IconButton } from 'native-base';
+import { Box, Text, IconButton, HStack } from 'native-base';
 import React, {useContext} from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import { Context } from '../../context/UserContext';
@@ -19,29 +19,32 @@ export default function Header({navigation}: InputProps) {
             justifyContent='space-between'
             paddingX={8}
         >  
-            <Box 
-                flexDirection='row' 
-                justifyContent='center' 
-                alignItems='center' 
-                marginTop={10}>
-                <Box marginRight={4}>
-                    <IconButton size={15} onPress={()=> navigation.openDrawer()} variant="solid" _icon={{
-                        as: MaterialIcons,
-                        name: 'menu',
-                        size: 6,                        
-                    }} />
+            <HStack width='100%' flexDirection='row' alignItems='center' justifyContent='space-between'>
+                <Box
+                    flexDirection='row' 
+                    justifyContent='center' 
+                    alignItems='center' 
+                    marginTop={10}>
+                    <Box marginRight={4}>
+                        <IconButton size={15} onPress={()=> navigation.openDrawer()} variant="solid" _icon={{
+                            as: MaterialIcons,
+                            name: 'menu',
+                            size: 6,                        
+                        }} />
+                    </Box>
+                    <Box>
+                        <Text fontSize='lg' fontWeight='bold' color='primary.100'>
+                            {meses[Number(new Date().getMonth())]}
+                        </Text>
+                    </Box>
                 </Box>
-                <Box>
+                <Box marginTop={10}> 
                     <Text fontSize='lg' fontWeight='bold' color='primary.100'>
-                        {meses[Number(new Date().getMonth())]}
-                    </Text>
+                        {userContext.nome.split(' ')[0]}
+                    </Text>         
                 </Box>
-            </Box>
-            <Box marginTop={12} paddingTop={3.5}> 
-                <Text fontSize='lg' fontWeight='bold' color='primary.100'>
-                    {userContext.nome.split(' ')[0]}
-                </Text>         
-            </Box>
+            </HStack>
+            
         </Box>
     );
 }
