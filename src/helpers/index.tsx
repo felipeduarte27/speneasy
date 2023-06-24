@@ -25,3 +25,7 @@ export const getMonthName = (monthNumber) => {
 
     return monthName;
 };
+
+export const formatCurrencyLabel = (value) => {
+    return value.toFixed(2).toString().replace('.', ',');
+};

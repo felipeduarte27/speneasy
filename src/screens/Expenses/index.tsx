@@ -7,6 +7,7 @@ import { getMonthName } from '../../helpers';
 import Loading from '../Loading';
 import MyTitleScreen from '../../components/MyTitleScreen';
 import MyTitleEmptyList from '../../components/MyTitleEmptyList';
+import { formatCurrencyLabel } from '../../helpers';
 
 interface InputProps {
   navigation: any
@@ -51,7 +52,7 @@ export default function Expenses({navigation}: InputProps){
                                 renderItem={({item}) => (
                                     <Box flexDirection='row' alignItems='center' justifyContent='space-between'>
                                         <Text fontWeight='bold' color='secondary.900' fontSize={14} maxWidth={50}>
-                                            {item.value.toFixed(2).toString().replace('.', ',')}
+                                            {formatCurrencyLabel(item.value)}
                                         </Text>  
                                         <Text fontWeight='bold' color='secondary.900' fontSize={14}>
                                             {

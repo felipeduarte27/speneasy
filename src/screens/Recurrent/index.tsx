@@ -16,6 +16,7 @@ import {Ionicons} from '@expo/vector-icons';
 import Loading from '../Loading';
 import MyTitleScreen from '../../components/MyTitleScreen';
 import MyTitleEmptyList from '../../components/MyTitleEmptyList';
+import { formatCurrencyLabel } from '../../helpers';
 
 const schema = yup.object({
     value: yup.string().required('Campo obrigatório !'),
@@ -164,7 +165,7 @@ export default function Recurrents({navigation}: InputProps){
                                             </Text>  
                                             <Text fontWeight='bold' color='secondary.900' fontSize={14}>
                                                 {
-                                                    item.value.toFixed(2).toString().replace('.', ',')
+                                                    `R$ ${formatCurrencyLabel(item.value)}`                                                    
                                                 }
                                             </Text>  
                                             <IconButton

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Link } from 'native-base';
+import { formatCurrencyLabel } from '../../helpers';
 
 interface InputProps {
     categories: any,
@@ -37,10 +38,9 @@ const Tree = ({ categories, nivel = 0, handleCategory }: InputProps) => {
                                 fontSize: 14, 
                                 color: 'secondary.900'
                             }}>
-                            {recurrentValue && expensesValue ? `R$ ${
-                                (recurrentValue + expensesValue).toFixed(2).toString().replaceAll('.', ',')}` : 
-                                recurrentValue ? `R$ ${recurrentValue.toFixed(2).toString().replaceAll('.', ',')}` :
-                                    expensesValue ? `R$ ${expensesValue.toFixed(2).toString().replaceAll('.', ',')}` :
+                            {recurrentValue && expensesValue ? `R$ ${formatCurrencyLabel(recurrentValue + expensesValue)}` : 
+                                recurrentValue ? `R$ ${formatCurrencyLabel(recurrentValue)}` :
+                                    expensesValue ? `R$ ${formatCurrencyLabel(expensesValue)}` :
                                         !(children.length > 0) ? 'R$ 0,00' : ''
                             }
 

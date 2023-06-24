@@ -1,5 +1,6 @@
 import React from 'react';
 import { Box, Text, useTheme } from 'native-base';
+import { formatCurrencyLabel } from '../../helpers';
 
 interface InputProps {
     income: any,
@@ -28,7 +29,7 @@ export default function Balance ({income, expense}: InputProps){
                 <Box flexDirection='row' justifyContent='space-between'>
                     <Text marginRight={1} fontSize={16} color='primary.200' fontWeight='bold'>R$</Text>
                     <Text fontSize={16} color='primary.200' fontWeight='bold'>{
-                        income ? income.toFixed(2).toString().replace('.', ',') : '0,00'
+                        income ? formatCurrencyLabel(income) : '0,00'
                     }</Text>
                 </Box>
             </Box>
@@ -38,7 +39,7 @@ export default function Balance ({income, expense}: InputProps){
                 <Box flexDirection='row' justifyContent='space-between'>
                     <Text marginRight={1} fontSize={16} color={theme.colors.primary[300]} fontWeight='bold'>R$</Text>
                     <Text fontSize={16} color={theme.colors.primary[300]} fontWeight='bold'>{
-                        expense.toFixed(2).toString().replace('.', ',')
+                        formatCurrencyLabel(expense)
                     }</Text>
                 </Box>
             </Box>

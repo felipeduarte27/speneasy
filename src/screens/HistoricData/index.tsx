@@ -4,6 +4,7 @@ import Header from '../../components/Header';
 import api from '../../api/axios';
 import Tree from '../../components/Tree';
 import MyTitleEmptyList from '../../components/MyTitleEmptyList';
+import { formatCurrencyLabel } from '../../helpers';
 
 interface Category {
     id: number,
@@ -56,7 +57,7 @@ export default function HistoricData ({navigation, route}: InputProps) {
                                 alignSelf='center'
                                 fontWeight='bold' 
                                 color='primary.300' 
-                                fontSize={16}>R$ {totalExpensese.toFixed(2).toString().replace('.', ',')}</Text>
+                                fontSize={16}>R$ {formatCurrencyLabel(totalExpensese)}</Text>
                         </Box>
                         <Box marginTop={6} width='90%'>
                             
