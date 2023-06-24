@@ -11,10 +11,10 @@ import { Context } from '../../context/UserContext';
 import MyToastBox from '../../components/MyToastBox';
 
 const schema = yup.object({
-    password: yup.string().required('Campo Obrigatório')
-        .oneOf([yup.ref('passwordConfirmation'), null], 'As senhas devem ser iguais'),
-    passwordConfirmation: yup.string().required('Campo Obrigatório')
-        .oneOf([yup.ref('password'), null], 'As senhas devem ser iguais')
+    password: yup.string().required('Campo Obrigatório !')
+        .oneOf([yup.ref('passwordConfirmation'), null], 'As senhas devem ser iguais !'),
+    passwordConfirmation: yup.string().required('Campo Obrigatório !')
+        .oneOf([yup.ref('password'), null], 'As senhas devem ser iguais !')
 }).required();
 
 interface InputProps {

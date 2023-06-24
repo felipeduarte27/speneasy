@@ -18,8 +18,11 @@ import Loading from '../Loading';
 const schema = yup.object({
     value: yup.string().required('Campo obrigatório !'),
     categorias: yup.string().required('Campo obrigatório !'),
-    start: yup.string().test('start', 'Campo obrigatório !', val => val && val.length === 7),
-    end: yup.string().test('start', 'Campo obrigatório !', val => val && val.length === 7),
+    start: yup.string().test('start', 'Campo obrigatório !', val => val && val.length === 7)
+        .test('start', 'Mês Inválido !', val => val && parseInt(val.substring(0,2)) <= 12 && parseInt(val.substring(0,2)) > 0)
+    ,
+    end: yup.string().test('end', 'Campo obrigatório !', val => val && val.length === 7)
+        .test('end', 'Mês Inválido !', val => val && parseInt(val.substring(0,2)) <= 12 && parseInt(val.substring(0,2)) > 0),
 });
 
 interface InputProps {

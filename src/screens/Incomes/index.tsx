@@ -13,7 +13,7 @@ import MyMoneyMask from '../../components/InputMasks/MyMoneyMask';
 import { currencyToFloat } from '../../helpers';
 
 const schema = yup.object({
-    value: yup.string().required('Campo Obrigatório'),
+    value: yup.string().required('Campo Obrigatório !'),
 }).required();
 
 interface InputProps {

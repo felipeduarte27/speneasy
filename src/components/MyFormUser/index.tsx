@@ -12,13 +12,13 @@ import MyButtonSubmit from '../../components/MyButtonSubmit';
 import MyInput from '../../components/MyInput';
 
 const createSchema = yup.object({
-    nome: yup.string().required('Campo Obrigatório'),
+    nome: yup.string().required('Campo Obrigatório !'),
     email: yup.string().email('Email inválido !').required('Campo obrigatório !'),
     password: yup.string().required('Campo obrigatório !')
 }).required();
 
 const updateSchema = yup.object({
-    nome: yup.string().required('Campo Obrigatório'),
+    nome: yup.string().required('Campo Obrigatório !'),
     email: yup.string().email('Email inválido !').required('Campo obrigatório !')
 }).required();
 

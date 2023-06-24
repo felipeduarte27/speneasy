@@ -10,7 +10,7 @@ import { Context } from '../../context/UserContext';
 import { currencyToFloat } from '../../helpers';
 
 const schema = yup.object({
-    value: yup.string().required('Campo Obrigatório')
+    value: yup.string().required('Campo Obrigatório !')
 }).required();
 
 interface Category{
