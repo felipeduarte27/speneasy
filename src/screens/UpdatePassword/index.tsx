@@ -11,7 +11,10 @@ import { Context } from '../../context/UserContext';
 import MyToastBox from '../../components/MyToastBox';
 
 const schema = yup.object({
-    password: yup.string().required('Campo Obrigatório'),
+    password: yup.string().required('Campo Obrigatório')
+        .oneOf([yup.ref('passwordConfirmation'), null], 'As senhas devem ser iguais'),
+    passwordConfirmation: yup.string().required('Campo Obrigatório')
+        .oneOf([yup.ref('password'), null], 'As senhas devem ser iguais')
 }).required();
 
 interface InputProps {
@@ -63,6 +66,17 @@ export default function UpdatePassword({navigation}: InputProps) {
                     type='password'
                     marginTop='4'
                 /> 
+
+                <MyInput
+                    name='passwordConfirmation' 
+                    placeholder='Repita a Senha'               
+                    control={control} 
+                    errors={errors} 
+                    inputLeftElement=''                                     
+                    type='password'
+                    marginTop='4'
+                />
+                
                 <MyButtonSubmit
                     text='Atualizar'
                     loadingText='Atualizando'
