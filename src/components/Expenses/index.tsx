@@ -4,6 +4,7 @@ import { Context } from '../../context/UserContext';
 import Tree from '../Tree';
 import api from '../../api/axios';
 import ModalCreateExpense from '../ModalCreateExpense';
+import Loading from '../../screens/Loading';
 
 interface Category {
     id: number,
@@ -61,7 +62,7 @@ export default function Expenses ({setIncome, setExpense}: InputProps){
                                        Não há categorias ativas !
                         </Text>} 
                 </Box>
-                : null
+                : <Loading/>
             }
         </>
     );

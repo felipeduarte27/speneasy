@@ -4,6 +4,7 @@ import Header from '../../components/Header';
 import api from '../../api/axios';
 import { Ionicons } from '@expo/vector-icons';
 import { getMonthName } from '../../helpers';
+import Loading from '../Loading';
 
 interface InputProps {
   navigation: any
@@ -78,7 +79,7 @@ export default function Expenses({navigation}: InputProps){
                                        Não há recorrências cadastradas !
                             </Text>}                            
                     </Box>
-                    : null }
+                    : <Loading/> }
             </Box>
         </>
     );

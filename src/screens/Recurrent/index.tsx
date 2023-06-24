@@ -13,6 +13,7 @@ import MyMonthYearMask from '../../components/InputMasks/MyMonthYearMask';
 import { currencyToFloat } from '../../helpers';
 import MyToastBox from '../../components/MyToastBox';
 import {Ionicons} from '@expo/vector-icons';
+import Loading from '../Loading';
 
 const schema = yup.object({
     value: yup.string().required('Campo obrigatório !'),
@@ -184,7 +185,7 @@ export default function Recurrents({navigation}: InputProps){
                                 </Text>}                            
                         </Box>
                     </>
-                    : null }
+                    : <Loading/> }
             </Box>                
         </>
     );

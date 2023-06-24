@@ -11,6 +11,7 @@ import api from '../../api/axios';
 import { Context } from '../../context/UserContext';
 import MyButtonSubmit from '../../components/MyButtonSubmit';
 import MyInputSelect from '../../components/MyInputSelect';
+import Loading from '../Loading';
 
 const defaultValues = {
     id: 0,
@@ -181,7 +182,7 @@ export default function Categories ({navigation}: InputProps) {
                                 </Text>} 
                         </Box>
                     </>
-                ) : null}
+                ) : <Loading/>}
             </Box>
         </>
     );
