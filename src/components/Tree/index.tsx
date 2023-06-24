@@ -5,7 +5,7 @@ import { Box, Link } from 'native-base';
 interface InputProps {
     categories: any,
     nivel: number, 
-    handleCategory: any   
+    handleCategory: any,  
 }
 
 const Tree = ({ categories, nivel = 0, handleCategory }: InputProps) => {   
@@ -51,9 +51,8 @@ const Tree = ({ categories, nivel = 0, handleCategory }: InputProps) => {
                 : null}
             
             {children.map((child) => (
-                <>
-                    <Tree 
-                        key={child.id}
+                <React.Fragment key={child.id}>             
+                    <Tree                        
                         categories={{
                             id: child.id, 
                             name: child.name, children: 
@@ -62,8 +61,8 @@ const Tree = ({ categories, nivel = 0, handleCategory }: InputProps) => {
                             recurrentValue: child.recurrentValue
                         }} 
                         nivel={nivel+1}
-                        handleCategory={handleCategory}/>
-                </>
+                        handleCategory={handleCategory}/>                
+                </React.Fragment>
             ))}
         </>
     );
