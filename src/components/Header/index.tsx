@@ -14,7 +14,13 @@ export default function Header({navigation}: InputProps) {
     return (
         <Box 
             height={`${14}%`} 
-            bgColor='primary.600' 
+            bg={{
+                linearGradient: {
+                    colors: ['primary.400', 'primary.900'],
+                    start: [0, 0],
+                    end: [1, 0]
+                }
+            }}            
             flexDirection='row' 
             justifyContent='space-between'
             paddingX={8}

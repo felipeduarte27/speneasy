@@ -39,10 +39,9 @@ const theme = extendTheme({
             },                                      
         },
         Button: {
-            defaultProps: {
-                size:'md',
-                bg:'primary.600',
+            defaultProps: {                                
                 _text:{
+                    color: '#ffffff',
                     fontWeight: 'bold',
                     fontSize: '18'
                 }

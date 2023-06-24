@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button } from 'native-base';
+import { Button, Box } from 'native-base';
 
 interface InputProps {
   text: string,
@@ -13,17 +13,25 @@ interface InputProps {
 export default function MyButtonSubmit({text, loadingText, isLoading, handleSubmite, onSubmit, marginTop}: InputProps){    
   
     return (
-        <>
+        <Box
+            bg={{
+                linearGradient: {
+                    colors: ['primary.400', 'primary.900'],
+                    start: [0, 0],
+                    end: [1, 0]
+                }
+            }}
+            marginTop={marginTop}
+            borderRadius={2}
+        >
             <Button 
-                padding={2}                           
-                fontSize={16}
+                variant='unstyled'                
                 isLoading={isLoading}
                 isLoadingText={loadingText}
-                onPress={handleSubmite(onSubmit)}
-                marginTop={marginTop}
+                onPress={handleSubmite(onSubmit)}                
             >
                 {text}
             </Button>
-        </>
+        </Box>
     );
 }
