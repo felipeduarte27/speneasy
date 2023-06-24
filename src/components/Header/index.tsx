@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import { Box, Text, IconButton } from 'native-base';
 import React, {useContext} from 'react';
 import { MaterialIcons } from '@expo/vector-icons';

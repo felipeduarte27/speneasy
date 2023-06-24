@@ -5,6 +5,7 @@ import Tree from '../Tree';
 import api from '../../api/axios';
 import ModalCreateExpense from '../ModalCreateExpense';
 import Loading from '../../screens/Loading';
+import MyTitleEmptyList from '../MyTitleEmptyList';
 
 interface Category {
     id: number,
@@ -58,9 +59,7 @@ export default function Expenses ({setIncome, setExpense}: InputProps){
                     <Text fontSize={16} color='primary.600' fontWeight='bold' alignSelf='center'>Despesas</Text>
                     {categories.children.length > 0 ? 
                         <Tree categories={categories} nivel={0} handleCategory={handleCategory}/>
-                        : <Text marginTop={2}  alignSelf='center'fontWeight='bold' color='secondary.900' fontSize={14}>
-                                       Não há categorias ativas !
-                        </Text>} 
+                        : <MyTitleEmptyList text='Não há categorias ativas !'/>} 
                 </Box>
                 : <Loading/>
             }

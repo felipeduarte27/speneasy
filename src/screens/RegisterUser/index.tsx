@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable no-constant-condition */
-/* eslint-disable @typescript-eslint/no-var-requires */
 import React from 'react';
 import { Box, Link } from 'native-base';
 import MyFormUser from '../../components/MyFormUser';

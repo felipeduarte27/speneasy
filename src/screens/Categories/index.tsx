@@ -12,6 +12,8 @@ import { Context } from '../../context/UserContext';
 import MyButtonSubmit from '../../components/MyButtonSubmit';
 import MyInputSelect from '../../components/MyInputSelect';
 import Loading from '../Loading';
+import MyTitleScreen from '../../components/MyTitleScreen';
+import MyTitleEmptyList from '../../components/MyTitleEmptyList';
 
 const defaultValues = {
     id: 0,
@@ -98,9 +100,7 @@ export default function Categories ({navigation}: InputProps) {
                 {openScreen ? (
                     <>
                         <Box paddingX={8} marginTop={5}>
-                            <Text alignSelf='center' fontSize={16} fontWeight='bold' color='primary.600'>
-                                {category.name ? 'Atualizar' : 'Cadastrar'} Categoria
-                            </Text>                        
+                            <MyTitleScreen name={(category.name ? 'Atualizar' : 'Cadastrar') + ' Categoria'}/>                                                   
                             <Box>
                                 <MyInput
                                     name='nome' 
@@ -177,9 +177,7 @@ export default function Categories ({navigation}: InputProps) {
                                         </Box>
                                     )}                
                                 />
-                                : <Text marginTop={2}  alignSelf='center'fontWeight='bold' color='secondary.900' fontSize={16}>
-                                       Não há categorias cadastradas !
-                                </Text>} 
+                                : <MyTitleEmptyList text='Não há categorias cadastradas !'/>} 
                         </Box>
                     </>
                 ) : <Loading/>}

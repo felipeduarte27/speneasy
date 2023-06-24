@@ -1,15 +1,11 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable no-constant-condition */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-var-requires */
-import React, { useState, useLayoutEffect, useCallback } from 'react';
-import { Box, Text } from 'native-base';
+import React, { useState } from 'react';
+import { Box } from 'native-base';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup'; 
 import MyButtonSubmit from '../../components/MyButtonSubmit';
 import MyInput from '../../components/MyInput';
+import MyTitleScreen from '../MyTitleScreen';
 
 const createSchema = yup.object({
     nome: yup.string().required('Campo Obrigatório !'),
@@ -30,10 +26,6 @@ interface InputProps {
   resetForm: boolean,
   loadingText: string,
   type: string
-}
-
-interface User {
-    nome: string
 }
 
 export default function MyFormUser({myOnSubmit, title, buttonTitle, user, resetForm, loadingText, type}: InputProps){
@@ -58,9 +50,7 @@ export default function MyFormUser({myOnSubmit, title, buttonTitle, user, resetF
 
     return (    
         <Box paddingX={8}>
-            <Text alignSelf='center' fontSize={16} fontWeight='bold' color='primary.600'>
-                {title}
-            </Text>
+            <MyTitleScreen name={title}/>
                 
             <MyInput
                 name='nome' 

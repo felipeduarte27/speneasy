@@ -14,6 +14,8 @@ import { currencyToFloat } from '../../helpers';
 import MyToastBox from '../../components/MyToastBox';
 import {Ionicons} from '@expo/vector-icons';
 import Loading from '../Loading';
+import MyTitleScreen from '../../components/MyTitleScreen';
+import MyTitleEmptyList from '../../components/MyTitleEmptyList';
 
 const schema = yup.object({
     value: yup.string().required('Campo obrigatório !'),
@@ -98,8 +100,8 @@ export default function Recurrents({navigation}: InputProps){
                 {openScreen ? 
                     <>
                         <Box marginTop={5}>
-                            <Box paddingX={8}>
-                                <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize={16}>Despesa Recorrente</Text>                
+                            <Box paddingX={8}>                                              
+                                <MyTitleScreen name='Despesa Recorrente'/>
                                 <Box>
                                     <Box>
                                         <MyMoneyMask
@@ -183,9 +185,8 @@ export default function Recurrents({navigation}: InputProps){
                                         </Box>
                                     )}                
                                 />
-                                : <Text marginTop={2}  alignSelf='center'fontWeight='bold' color='secondary.900' fontSize={16}>
-                                       Não há recorrências cadastradas !
-                                </Text>}                            
+                                : <MyTitleEmptyList text='Não há recorrências cadastradas !'/>
+                            }                            
                         </Box>
                     </>
                     : <Loading/> }

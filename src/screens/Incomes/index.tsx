@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Box, useToast, Text } from 'native-base';
+import { Box, useToast } from 'native-base';
 import Header from '../../components/Header';
 import MyToastBox from '../../components/MyToastBox';
 import Loading from '../Loading';
@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import MyButtonSubmit from '../../components/MyButtonSubmit';
 import MyMoneyMask from '../../components/InputMasks/MyMoneyMask';
 import { currencyToFloat } from '../../helpers';
+import MyTitleScreen from '../../components/MyTitleScreen';
 
 const schema = yup.object({
     value: yup.string().required('Campo Obrigatório !'),
@@ -104,11 +105,8 @@ export default function Incomes ({navigation}: InputProps) {
             {openScreen ? (
                 <Box flex={1} backgroundColor='primary.100'>
                     <Header navigation={navigation}/>
-                    <Box marginTop={5} paddingX={8}>
-                        <Text alignSelf='center' fontSize={16} fontWeight='bold' color='primary.600'>
-                            Receita Mensal
-                        </Text>                       
-                        
+                    <Box marginTop={5} paddingX={8}>                     
+                        <MyTitleScreen name='Receita Mensal'/>
                         <MyMoneyMask
                             control={control}
                             errors={errors}

@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, {useState} from 'react';
 import { Input, Icon, Pressable, FormControl } from 'native-base';
 import { Controller } from 'react-hook-form';

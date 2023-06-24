@@ -1,4 +1,4 @@
-import { Box, Text } from 'native-base';
+import { Box } from 'native-base';
 import React from 'react';
 import Header from '../../components/Header';
 import { useForm } from 'react-hook-form';
@@ -7,7 +7,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import MyButtonSubmit from '../../components/MyButtonSubmit';
 import MyYearMask from '../../components/InputMasks/MyYearMask';
 import MySelectMonth from '../../components/MySelectMonth';
-
+import MyTitleScreen from '../../components/MyTitleScreen';
 
 const schema = yup.object({
     ano: yup.string().required('Campo obrigatório !'),
@@ -34,7 +34,7 @@ export default function HistoricSearchForm({navigation}: InputProps){
             <Header navigation={navigation}/>
             <Box marginTop={5}>
                 <Box paddingX={8}>
-                    <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize={16}>Escolha um Período</Text>                
+                    <MyTitleScreen name='Escolha um Período'/>                                  
                     <Box>
                         <Box>
                             <MyYearMask

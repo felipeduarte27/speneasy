@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Box, Text, Link } from 'native-base';
 import React, { useEffect, useState } from 'react';
 import Header from '../../components/Header';
 import api from '../../api/axios';
 import Tree from '../../components/Tree';
+import MyTitleEmptyList from '../../components/MyTitleEmptyList';
 
 interface Category {
     id: number,
@@ -62,10 +62,7 @@ export default function HistoricData ({navigation, route}: InputProps) {
                             
                             { totalExpensese ?
                                 <Tree categories={categories} nivel={0} handleCategory={null}/>
-                                : 
-                                <Text alignSelf='center' color='secondary.900' fontSize='16'>
-                                    Não há lançamentos para esse mês !
-                                </Text>
+                                : <MyTitleEmptyList text='Não há lançamentos para esse mês !'/>
                             }
                         </Box>
                         <Box flexDirection='row' justifyContent='space-between' marginTop={8}>

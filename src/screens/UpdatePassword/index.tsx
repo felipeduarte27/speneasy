@@ -1,5 +1,5 @@
 import React, {useState, useContext} from 'react';
-import { Box, Text, useToast } from 'native-base';
+import { Box, useToast } from 'native-base';
 import Header from '../../components/Header';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
@@ -9,6 +9,7 @@ import MyButtonSubmit from '../../components/MyButtonSubmit';
 import api from '../../api/axios';
 import { Context } from '../../context/UserContext';
 import MyToastBox from '../../components/MyToastBox';
+import MyTitleScreen from '../../components/MyTitleScreen';
 
 const schema = yup.object({
     password: yup.string().required('Campo Obrigatório !')
@@ -55,8 +56,8 @@ export default function UpdatePassword({navigation}: InputProps) {
     return (        
         <Box flex={1} backgroundColor='primary.100'>
             <Header navigation={navigation}/>
-            <Box paddingX={8} marginTop={5}>
-                <Text alignSelf='center' fontSize={16} fontWeight='bold' color='primary.600'>Atualizar Senha</Text>
+            <Box paddingX={8} marginTop={5}>                
+                <MyTitleScreen name='Atualizar Senha'/>
                 <MyInput
                     name='password' 
                     placeholder='Senha'               

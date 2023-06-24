@@ -1,6 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable no-constant-condition */
-/* eslint-disable @typescript-eslint/no-var-requires */
 import React, { useState, useContext, useCallback } from 'react';
 import { Box, Link, Text, useTheme } from 'native-base';
 import * as yup from 'yup';

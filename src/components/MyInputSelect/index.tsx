@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { Controller } from 'react-hook-form';
 import { Select, CheckIcon, useTheme, FormControl } from 'native-base';

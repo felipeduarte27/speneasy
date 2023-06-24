@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 import { TextInputMask } from 'react-native-masked-text';
 import { Controller } from 'react-hook-form';

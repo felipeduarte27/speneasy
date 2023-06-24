@@ -1,8 +1,5 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable no-constant-condition */
-/* eslint-disable @typescript-eslint/no-var-requires */
 import React, { useState } from 'react';
-import { Box, Text, Link } from 'native-base';
+import { Box, Link } from 'native-base';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup'; 
@@ -11,6 +8,7 @@ import MyInput from '../../components/MyInput';
 import { useToast } from 'native-base';
 import MyToastBox from '../../components/MyToastBox';
 import api from '../../api/axios';
+import MyTitleScreen from '../../components/MyTitleScreen';
 
 const schema = yup.object({    
     email: yup.string().email('Email inválido !').required('Campo obrigatório !'),
@@ -52,10 +50,7 @@ export default function ForgotPassword({navigation}: InputProps){
         <Box flex={1} flexDir='column' bg='primary.100'>
             
             <Box flex={1} flexDir='column' alignContent='center' justifyContent='center' padding={8}>
-                <Text alignSelf='center' fontSize={16} fontWeight='bold' color='primary.600'>
-                  Recuperar Senha
-                </Text>
-
+                <MyTitleScreen name='Recuperar Senha'/>
                 <MyInput
                     name='email' 
                     placeholder='Email'                   

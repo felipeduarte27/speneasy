@@ -5,6 +5,8 @@ import api from '../../api/axios';
 import { Ionicons } from '@expo/vector-icons';
 import { getMonthName } from '../../helpers';
 import Loading from '../Loading';
+import MyTitleScreen from '../../components/MyTitleScreen';
+import MyTitleEmptyList from '../../components/MyTitleEmptyList';
 
 interface InputProps {
   navigation: any
@@ -37,9 +39,7 @@ export default function Expenses({navigation}: InputProps){
                 <Header navigation={navigation}/>
                 {openScreen ?      
                     <Box marginTop={5}> 
-                        <Text alignSelf='center' color='primary.600' fontWeight='bold' fontSize={16} >
-                              Despesas de {getMonthName(new Date().getMonth()+1)}
-                        </Text>
+                        <MyTitleScreen name={`Despesas de ${getMonthName(new Date().getMonth()+1)}`}/>                        
                         {expenses.length > 0 ? 
                             <FlatList
                                 marginTop={5}
@@ -75,9 +75,7 @@ export default function Expenses({navigation}: InputProps){
                                     </Box>
                                 )}                
                             />
-                            : <Text marginTop={2}  alignSelf='center'fontWeight='bold' color='secondary.900' fontSize={16}>
-                                       Não há recorrências cadastradas !
-                            </Text>}                            
+                            : <MyTitleEmptyList text='Não há despesas cadastradas !'/>}                            
                     </Box>
                     : <Loading/> }
             </Box>
