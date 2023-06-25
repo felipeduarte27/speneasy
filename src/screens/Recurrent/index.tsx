@@ -18,6 +18,15 @@ import MyTitleScreen from '../../components/MyTitleScreen';
 import MyTitleEmptyList from '../../components/MyTitleEmptyList';
 import { formatCurrencyLabel } from '../../helpers';
 import { formatLongName } from '../../helpers';
+import { getMonthNumberTwoDigit } from '../../helpers';
+
+const defaultValues = {
+    id: 0,
+};
+
+interface Recurrent {
+    id: number,
+}
 
 const schema = yup.object({
     value: yup.string().required('Campo obrigatório !'),
@@ -36,6 +45,7 @@ interface InputProps {
 export default function Recurrents({navigation}: InputProps){
     const [categories, setCategories] = useState([]);
     const [recurrents, setRecurrents] = useState([]);
+    const [recurrent, setRecurrent] = useState<Recurrent>(defaultValues);
     const [openScreen, setOpenScreen] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const { user: userContext } = useContext(Context);
@@ -62,9 +72,8 @@ export default function Recurrents({navigation}: InputProps){
     const onSubmit = async (data) => { 
         
         try{
-            
-            setIsLoading(true);            
-            await api.post('recurrents/create', {
+            setIsLoading(true);   
+            const recurrentObj = {
                 value: currencyToFloat(data.value),
                 active: true,
                 categoriesId: parseInt(data.categorias),
@@ -73,11 +82,18 @@ export default function Recurrents({navigation}: InputProps){
                 finalMonth: parseInt(data.end.substring(0,2)),
                 finalYear: parseInt(data.end.substring(3,7)),
                 userId: parseInt(userContext.id)
-            });
+            };
+
+            if(recurrent.id > 0){
+                await api.put(`recurrents/update/${recurrent.id}`, recurrentObj);
+            }else{
+                await api.post('recurrents/create',recurrentObj);
+            }            
             toast.show({
                 render: () => {
                     return <MyToastBox description='Dados salvos com sucesso !' type='sucess'/>;}
-            });            
+            });
+
         }catch(error){            
             toast.show({
                 render: () => {
@@ -140,8 +156,8 @@ export default function Recurrents({navigation}: InputProps){
                                     </Box>              
                                 </Box>      
                                 <MyButtonSubmit
-                                    text='Cadastrar'
-                                    loadingText='Cadastrando'
+                                    text={recurrent.id > 0 ? 'Atualizar': 'Cadastrar'}
+                                    loadingText={recurrent.id > 0 ? 'Atualizando': 'Cadastrando'}
                                     isLoading={isLoading}
                                     handleSubmite={handleSubmit}
                                     onSubmit={onSubmit}
@@ -169,21 +185,43 @@ export default function Recurrents({navigation}: InputProps){
                                                     `R$ ${formatCurrencyLabel(item.value)}`                                                    
                                                 }
                                             </Text>  
-                                            <IconButton
-                                                onPress={async ()=>{
-                                                    try{
-                                                        await api.delete(`recurrents/delete/${item.id}`);
-                                                        const apiReturn = await api.get('/recurrents/findAllActives', {params: {userId: userContext.id}}); 
-                                                        setRecurrents(apiReturn.data);                                               
-                                                    }catch(error){
-                                                        console.log(error);
+                                            <Box flexDirection='row'>
+                                                <IconButton
+                                                    onPress={async ()=>{
+                                                        try{
+                                                            setRecurrent({
+                                                                id: item.id
+                                                            });
+                                                            
+                                                            setValue('value', item.value % 10 === 0 ? item.value + ',00' : item.value); 
+                                                            setValue('categorias', item.categoriesId ? item.categoriesId : '0');
+                                                            setValue('start', `${getMonthNumberTwoDigit(item.initialMonth)}/${item.initialYear}`);                                                            
+                                                            setValue('end', `${getMonthNumberTwoDigit(item.finalMonth)}/${item.finalYear}`);                                                                                                         
+                                                        }catch(error){
+                                                            console.log(error);
+                                                        }
+                                                    }}
+                                                    _pressed={{backgroundColor: 'primary.100'}}
+                                                    icon={
+                                                        <Icon color='primary.600' as={Ionicons} name='create-sharp'/>
                                                     }
-                                                }}
-                                                _pressed={{backgroundColor: 'primary.100'}}
-                                                icon={
-                                                    <Icon color='primary.600' as={Ionicons} name='trash'/>
-                                                }
-                                            />                                        
+                                                /> 
+                                                <IconButton
+                                                    onPress={async ()=>{
+                                                        try{
+                                                            await api.delete(`recurrents/delete/${item.id}`);
+                                                            const apiReturn = await api.get('/recurrents/findAllActives', {params: {userId: userContext.id}}); 
+                                                            setRecurrents(apiReturn.data);                                               
+                                                        }catch(error){
+                                                            console.log(error);
+                                                        }
+                                                    }}
+                                                    _pressed={{backgroundColor: 'primary.100'}}
+                                                    icon={
+                                                        <Icon color='primary.600' as={Ionicons} name='trash'/>
+                                                    }
+                                                />  
+                                            </Box>                                      
                                         </Box>
                                     )}                
                                 />

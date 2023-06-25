@@ -34,3 +34,9 @@ export const formatLongName = (value) => {
     const text = value.length > 7 ? value.substring(0, 5)+'.': value;
     return text;
 };
+
+export const getMonthNumberTwoDigit = (value) => {
+
+    const number = value < 12 ? `0${value}` : value;
+    return number;
+};
