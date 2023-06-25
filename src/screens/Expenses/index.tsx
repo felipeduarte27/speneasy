@@ -56,7 +56,7 @@ export default function Expenses({navigation}: InputProps){
                                 showsVerticalScrollIndicator={false}
                                 renderItem={({item}) => (
                                     <Box flexDirection='row' alignItems='center' justifyContent='space-between'>
-                                        <Text fontWeight='bold' color='secondary.900' fontSize={14} maxWidth={50}>
+                                        <Text fontWeight='bold' color='secondary.900' fontSize={14} width={75}>
                                             {formatCurrencyLabel(item.value)}
                                         </Text>  
                                         <Text fontWeight='bold' color='secondary.900' fontSize={14}>
