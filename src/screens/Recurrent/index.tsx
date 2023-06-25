@@ -47,8 +47,8 @@ export default function Recurrents({navigation}: InputProps){
     const loadData = async () => {
       
         Promise.all([
-            api.get('/categories/findAllActives' , {params: {userId: userContext.id}}),
-            api.get(`/recurrents/findAllActives/${userContext.id}`)
+            api.get('/categories/findAllActives', {params: {userId: userContext.id}}),
+            api.get('/recurrents/findAllActives', {params: {userId: userContext.id}})
         ]).then((values)=>{
             setCategories(values[0].data);
             setRecurrents(values[1].data);
@@ -173,7 +173,7 @@ export default function Recurrents({navigation}: InputProps){
                                                 onPress={async ()=>{
                                                     try{
                                                         await api.delete(`recurrents/delete/${item.id}`);
-                                                        const apiReturn = await api.get(`/recurrents/findAllActives/${userContext.id}`); 
+                                                        const apiReturn = await api.get('/recurrents/findAllActives', {params: {userId: userContext.id}}); 
                                                         setRecurrents(apiReturn.data);                                               
                                                     }catch(error){
                                                         console.log(error);

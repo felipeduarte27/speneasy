@@ -31,7 +31,7 @@ export default function HistoricData ({navigation, route}: InputProps) {
             [
                 api.get(`categories/findByPeriod/${month}/${year}`, {params: {userId: userContext.id}}),
                 api.get(`/expenses/findTotalExpensesByPeriod/${month}/${year}`, {params: {userId: userContext.id}}),
-                api.get(`/recurrents/findTotalRecurrentsByPeriod/${month}/${year}`)
+                api.get(`/recurrents/findTotalRecurrentsByPeriod/${month}/${year}`, {params: {userId: userContext.id}})
             ]
         ).then((values)=> {
                 

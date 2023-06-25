@@ -31,7 +31,7 @@ export default function Expenses ({setIncome, setExpense}: InputProps){
             api.get('/categories/findAll', {params: {userId: userContext.id}}), 
             api.get('/expenses/findTotalExpenseActualMonth', {params: {userId: userContext.id}}),
             api.get('/incomes/find', {params: {userId: userContext.id}}),
-            api.get('/recurrents/findTotalRecurrentsActualMonth')
+            api.get('/recurrents/findTotalRecurrentsActualMonth', {params: {userId: userContext.id}})
         ]).then((values) => {
             setCategories(values[0].data);
             setExpense(values[1].data + values[3].data);
