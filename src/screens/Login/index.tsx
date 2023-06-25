@@ -83,13 +83,25 @@ export default function Login({navigation}: InputProps){
                      */
                 }
                 <Box flexDir='column' alignItems='center'>
-                    <Box alignSelf='center' borderWidth={2} borderRadius={42} padding={2} borderColor='primary.600'>
+                    <Box 
+                        alignSelf='center' 
+                        borderWidth={2} 
+                        borderRadius={42} 
+                        padding={2} 
+                        bg={{
+                            linearGradient: {
+                                colors: ['primary.400', 'primary.900'],
+                                start: [0, 0],
+                                end: [1, 0]
+                            }
+                        }}
+                        borderColor='primary.700'>
                         <Box marginLeft={1}>
-                            <Ionicons name='logo-usd' size={58} color={theme.colors.primary[600]}/>
+                            <Ionicons name='logo-usd' size={58} color={theme.colors.primary[100]}/>
                         </Box>                    
                     </Box>
                     <Box>
-                        <Text color='primary.600' fontWeight='bold' fontSize={16}>Speneasy</Text>
+                        <Text color='primary.900' fontWeight='bold' fontSize={18}>Gasto Mensal</Text>
                     </Box>
                 </Box>
                 <MyInput
