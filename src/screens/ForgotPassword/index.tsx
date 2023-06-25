@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Box, Link } from 'native-base';
+import { Box, Link, Text } from 'native-base';
 import * as yup from 'yup';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup'; 
@@ -47,9 +47,11 @@ export default function ForgotPassword({navigation}: InputProps){
     };
 
     return (
-        <Box flex={1} flexDir='column' bg='primary.100'>
-            
-            <Box flex={1} flexDir='column' alignContent='center' justifyContent='center' padding={8}>
+        <Box bgColor='primary.600' flex={1} flexDir='column' alignContent='center' justifyContent='center'>                
+            <Box height='50%' bgColor='primary.600' padding={10}>
+                <Text bold fontSize={28} mt={40} color='primary.100'>Bem Vindo</Text>
+            </Box>
+            <Box bgColor='primary.100' borderRadius={18} flex={1} flexDir='column' alignContent='center' paddingX={8} paddingTop={4}>
                 <MyTitleScreen name='Recuperar Senha'/>
                 <MyInput
                     name='email' 

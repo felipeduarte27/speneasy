@@ -71,81 +71,76 @@ export default function Login({navigation}: InputProps){
     return (
         <Box flex={1} flexDir='column' bg='primary.100'>
             
-            <Box flex={1} flexDir='column' alignContent='center' justifyContent='center' padding={8}>
-                {
-                    /**
-                        <Image 
-                        alt='Login' 
-                        size='lg' 
-                        source={imgLogin.image}
-                        alignSelf='center'
-                        />
-                     */
-                }
-                <Box flexDir='column' alignItems='center'>
-                    <Box 
-                        alignSelf='center' 
-                        borderWidth={2} 
-                        borderRadius={42} 
-                        padding={2} 
-                        bg={{
-                            linearGradient: {
-                                colors: ['primary.400', 'primary.900'],
-                                start: [0, 0],
-                                end: [1, 0]
-                            }
-                        }}
-                        borderColor='primary.700'>
-                        <Box marginLeft={1}>
-                            <Ionicons name='logo-usd' size={58} color={theme.colors.primary[100]}/>
-                        </Box>                    
-                    </Box>
-                    <Box>
-                        <Text color='primary.900' fontWeight='bold' fontSize={18}>Gasto Mensal</Text>
-                    </Box>
+            <Box bgColor='primary.600' flex={1} flexDir='column' alignContent='center' justifyContent='center'>                
+                <Box height='50%' bgColor='primary.600' padding={10}>
+                    <Text bold fontSize={28} mt={40} color='primary.100'>Bem Vindo</Text>
                 </Box>
-                <MyInput
-                    name='email' 
-                    placeholder='Email'                   
-                    control={control} 
-                    errors={errors} 
-                    inputLeftElement='person'                                         
-                    type='text'
-                    marginTop='4'
-                />
+                <Box borderRadius='18' bgColor='primary.100' height='50%' paddingY={4} paddingX={8}>
+                    <Box flexDir='column' alignItems='center'>
+                        <Box 
+                            alignSelf='center' 
+                            borderWidth={2} 
+                            borderRadius={42} 
+                            padding={2} 
+                            bg={{
+                                linearGradient: {
+                                    colors: ['primary.400', 'primary.900'],
+                                    start: [0, 0],
+                                    end: [1, 0]
+                                }
+                            }}
+                            borderColor='primary.700'>
+                            <Box marginLeft={1}>
+                                <Ionicons name='logo-usd' size={58} color={theme.colors.primary[100]}/>
+                            </Box>                    
+                        </Box>
+                        <Box>
+                            <Text color='primary.900' fontWeight='bold' fontSize={18}>Gasto Mensal</Text>
+                        </Box>
+                    </Box>
+                    <MyInput
+                        name='email' 
+                        placeholder='Email'                   
+                        control={control} 
+                        errors={errors} 
+                        inputLeftElement='person'                                         
+                        type='text'
+                        marginTop='4'
+                    />
 
                 
-                <MyInput
-                    name='password' 
-                    placeholder='Senha'                   
-                    control={control} 
-                    errors={errors} 
-                    inputLeftElement=''                                            
-                    type='password'
-                    marginTop='4'
-                />
+                    <MyInput
+                        name='password' 
+                        placeholder='Senha'                   
+                        control={control} 
+                        errors={errors} 
+                        inputLeftElement=''                                            
+                        type='password'
+                        marginTop='4'
+                    />
 
-                <MyButtonSubmit
-                    text='Login'
-                    loadingText='Logando'
-                    isLoading={isLoading}
-                    handleSubmite={handleSubmit}
-                    onSubmit={onSubmit}
-                    marginTop={4}
-                />  
-                <Box flexDirection='row' justifyContent='space-between' marginTop={2}>
-                    <Link onPress={()=>{navigation.navigate('registerUser');}} isUnderlined={false} _text={{
-                        color: 'secondary.900',
-                        fontSize: 16
-                    }}>
+                    <MyButtonSubmit
+                        text='Login'
+                        loadingText='Logando'
+                        isLoading={isLoading}
+                        handleSubmite={handleSubmit}
+                        onSubmit={onSubmit}
+                        marginTop={4}
+                    />  
+                    <Box flexDirection='row' justifyContent='space-between' marginTop={2}>
+                        <Link onPress={()=>{navigation.navigate('registerUser');}} isUnderlined={false} _text={{
+                            color: 'secondary.900',
+                            fontSize: 16
+                        }}>
                     Cadastrar
-                    </Link> 
-                    <Link onPress={()=>navigation.navigate('forgotPassword')} isUnderlined={false} _text={{
-                        color: 'secondary.900',
-                        fontSize: 16
-                    }}>
+                        </Link> 
+                        <Link onPress={()=>navigation.navigate('forgotPassword')} isUnderlined={false} _text={{
+                            color: 'secondary.900',
+                            fontSize: 16
+                        }}>
                     Esqueceu a Senha?
-                    </Link>             
+                        </Link>             
+                    </Box>
                 </Box>
             </Box>
         </Box>
