@@ -45,7 +45,7 @@ export default function Incomes ({navigation}: InputProps) {
 
     const loadData = async () => {
         try{
-            const apiReturn = await api.get(`/incomes/find/${userContext.id}`);
+            const apiReturn = await api.get('/incomes/find', {params: {userId: userContext.id}});
             
             const { id, active, value, userId } = apiReturn.data;
             
