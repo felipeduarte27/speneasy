@@ -27,7 +27,7 @@ export default function HistoricData ({navigation, route}: InputProps) {
        
         Promise.all(
             [
-                api.get(`categories/findByPeriod/${month}/${year}`),
+                api.get(`categories/findByPeriod/${month}/${year}`, {params: {userId: 4}}),
                 api.get(`/expenses/findTotalExpensesByPeriod/${month}/${year}`),
                 api.get(`/recurrents/findTotalRecurrentsByPeriod/${month}/${year}`)
             ]

@@ -67,7 +67,7 @@ export default function Categories ({navigation}: InputProps) {
                     recurrent: null
                 });
             }
-            const apiReturn = await api.get(`/categories/findAllActives/${userContext.id}`);
+            const apiReturn = await api.get('/categories/findAllActives' , {params: {userId: userContext.id}});
             setCategories(apiReturn.data);     
         }catch(error){
             console.log(error);
@@ -80,7 +80,7 @@ export default function Categories ({navigation}: InputProps) {
 
     const loadData = async () => {
         try{
-            const apiReturn = await api.get(`/categories/findAllActives/${userContext.id}`);
+            const apiReturn = await api.get('/categories/findAllActives' , {params: {userId: userContext.id}});
             setCategories(apiReturn.data);
             setOpenScreen(true);
         } catch(error){
@@ -162,7 +162,7 @@ export default function Categories ({navigation}: InputProps) {
                                                     onPress={async ()=>{
                                                         try{
                                                             await api.delete(`categories/delete/${item.id}`);
-                                                            const apiReturn = await api.get(`/categories/findAllActives/${userContext.id}`); 
+                                                            const apiReturn = await api.get('/categories/findAllActives' , {params: {userId: userContext.id}}); 
                                                             setCategories(apiReturn.data);                                                
                                                         }catch(error){
                                                             console.log(error);

@@ -47,7 +47,7 @@ export default function Recurrents({navigation}: InputProps){
     const loadData = async () => {
       
         Promise.all([
-            api.get(`/categories/findAllActives/${userContext.id}`),
+            api.get('/categories/findAllActives' , {params: {userId: userContext.id}}),
             api.get(`/recurrents/findAllActives/${userContext.id}`)
         ]).then((values)=>{
             setCategories(values[0].data);
