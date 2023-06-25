@@ -28,8 +28,8 @@ export default function Expenses ({setIncome, setExpense}: InputProps){
     
     const loadData = async () => {  
         Promise.all([
-            api.get('/categories/findAll' , {params: {userId: userContext.id}}), 
-            api.get('/expenses/findTotalExpenseActualMonth'),
+            api.get('/categories/findAll', {params: {userId: userContext.id}}), 
+            api.get('/expenses/findTotalExpenseActualMonth', {params: {userId: userContext.id}}),
             api.get(`/incomes/find/${userContext.id}`),
             api.get('/recurrents/findTotalRecurrentsActualMonth')
         ]).then((values) => {

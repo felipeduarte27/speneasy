@@ -1,5 +1,5 @@
 import { Box, Text, FlatList, IconButton, Icon } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Header from '../../components/Header';
 import api from '../../api/axios';
 import { Ionicons } from '@expo/vector-icons';
@@ -8,6 +8,7 @@ import Loading from '../Loading';
 import MyTitleScreen from '../../components/MyTitleScreen';
 import MyTitleEmptyList from '../../components/MyTitleEmptyList';
 import { formatCurrencyLabel } from '../../helpers';
+import { Context } from '../../context/UserContext';
 
 interface InputProps {
   navigation: any
@@ -16,12 +17,16 @@ interface InputProps {
 export default function Expenses({navigation}: InputProps){
     const [expenses, setExpenses] = useState([]);
     const [openScreen, setOpenScreen] = useState(false);
+    const { user: userContext } = useContext(Context);
 
     const loadData = async () => {
       
         try{
     
-            const returnApi = await api.get(`/expenses/findByPeriod/${new Date().getMonth() + 1}/${new Date().getFullYear()}`);
+            const returnApi = await api.get(
+                `/expenses/findByPeriod/${new Date().getMonth() + 1}/${new Date().getFullYear()}`, 
+                {params: {userId: userContext.id}}
+            );
             setExpenses(returnApi.data);
     
         }catch(errors){

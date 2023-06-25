@@ -1,10 +1,11 @@
 import { Box, Text, Link } from 'native-base';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import Header from '../../components/Header';
 import api from '../../api/axios';
 import Tree from '../../components/Tree';
 import MyTitleEmptyList from '../../components/MyTitleEmptyList';
 import { formatCurrencyLabel } from '../../helpers';
+import { Context } from '../../context/UserContext';
 
 interface Category {
     id: number,
@@ -22,13 +23,14 @@ export default function HistoricData ({navigation, route}: InputProps) {
     const [categories, setCategories] = useState<Category[]>([]);
     const [totalExpensese, setTotalExpenses] = useState(0);
     const { month, year } = route.params;
+    const { user: userContext } = useContext(Context);
 
     const loadData = async () => {
        
         Promise.all(
             [
-                api.get(`categories/findByPeriod/${month}/${year}`, {params: {userId: 4}}),
-                api.get(`/expenses/findTotalExpensesByPeriod/${month}/${year}`),
+                api.get(`categories/findByPeriod/${month}/${year}`, {params: {userId: userContext.id}}),
+                api.get(`/expenses/findTotalExpensesByPeriod/${month}/${year}`, {params: {userId: userContext.id}}),
                 api.get(`/recurrents/findTotalRecurrentsByPeriod/${month}/${year}`)
             ]
         ).then((values)=> {
